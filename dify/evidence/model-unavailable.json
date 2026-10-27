@@ -1,0 +1,47 @@
+{
+  "tested_at_utc": "2026-10-27T20:36:46.569900+00:00",
+  "test_type": "actual-dify-unavailable-model",
+  "precondition": "The npc-model service had not started. Dify, sandbox, game and real PowerContext were running.",
+  "observed_http_status": 400,
+  "committed_turns": 0,
+  "passed": true,
+  "nodes": [
+    {
+      "workflow_run_id": "cb898599-04ab-4d9a-9ad8-38d27f319640",
+      "node_id": "start",
+      "status": "succeeded",
+      "created_at": "2026-10-27T20:34:10.726552"
+    },
+    {
+      "workflow_run_id": "cb898599-04ab-4d9a-9ad8-38d27f319640",
+      "node_id": "prepare_body",
+      "status": "succeeded",
+      "created_at": "2026-10-27T20:34:10.769685"
+    },
+    {
+      "workflow_run_id": "cb898599-04ab-4d9a-9ad8-38d27f319640",
+      "node_id": "prepare",
+      "status": "succeeded",
+      "created_at": "2026-10-27T20:34:10.978502"
+    },
+    {
+      "workflow_run_id": "cb898599-04ab-4d9a-9ad8-38d27f319640",
+      "node_id": "model_body",
+      "status": "succeeded",
+      "created_at": "2026-10-27T20:34:11.852342"
+    },
+    {
+      "workflow_run_id": "cb898599-04ab-4d9a-9ad8-38d27f319640",
+      "node_id": "model",
+      "status": "succeeded",
+      "created_at": "2026-10-27T20:34:11.951733"
+    },
+    {
+      "workflow_run_id": "cb898599-04ab-4d9a-9ad8-38d27f319640",
+      "node_id": "commit_body",
+      "status": "failed",
+      "created_at": "2026-10-27T20:34:23.983642"
+    }
+  ],
+  "interpretation": "Dify stopped before the write node; no model dialogue or saved turn was fabricated."
+}

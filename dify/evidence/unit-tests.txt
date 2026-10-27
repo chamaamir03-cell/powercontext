@@ -1,0 +1,46 @@
+test_concurrent_turn_cannot_overwrite_newer_state (test_game.GameTests.test_concurrent_turn_cannot_overwrite_newer_state) ... {"event": "memory_read", "scope_id": "scope-player-one", "records": 0, "session": "session-a", "turn_id": "parallel-turn-00000001"}
+{"event": "memory_read", "scope_id": "scope-player-one", "records": 0, "session": "session-b", "turn_id": "parallel-turn-00000002"}
+{"event": "memory_written", "scope_id": "scope-player-one", "turn_id": "parallel-turn-00000001", "turn": 1, "artifact": {"scope_id": "scope-player-one", "family": "atomic-memory", "artifact_id": "artifact-1", "revision": 1}}
+ok
+test_different_player_cannot_inherit_the_other_players_grudge (test_game.GameTests.test_different_player_cannot_inherit_the_other_players_grudge) ... {"event": "memory_read", "scope_id": "scope-player-one", "records": 0, "session": "session-a", "turn_id": "turn-00000000000000000001"}
+{"event": "memory_written", "scope_id": "scope-player-one", "turn_id": "turn-00000000000000000001", "turn": 1, "artifact": {"scope_id": "scope-player-one", "family": "atomic-memory", "artifact_id": "artifact-1", "revision": 1}}
+{"event": "memory_read", "scope_id": "scope-player-two", "records": 0, "session": "session-b", "turn_id": "new-turn-000000000002"}
+ok
+test_negated_free_text_and_fabricated_model_reply_do_not_change_inventory (test_game.GameTests.test_negated_free_text_and_fabricated_model_reply_do_not_change_inventory) ... {"event": "memory_read", "scope_id": "scope-player-one", "records": 0, "session": "session-a", "turn_id": "turn-00000000000000000001"}
+{"event": "memory_written", "scope_id": "scope-player-one", "turn_id": "turn-00000000000000000001", "turn": 1, "artifact": {"scope_id": "scope-player-one", "family": "atomic-memory", "artifact_id": "artifact-1", "revision": 1}}
+ok
+test_new_process_and_new_session_recall_persisted_umbrella (test_game.GameTests.test_new_process_and_new_session_recall_persisted_umbrella) ... {"event": "memory_read", "scope_id": "scope-player-one", "records": 0, "session": "session-a", "turn_id": "turn-00000000000000000001"}
+{"event": "memory_written", "scope_id": "scope-player-one", "turn_id": "turn-00000000000000000001", "turn": 1, "artifact": {"scope_id": "scope-player-one", "family": "atomic-memory", "artifact_id": "artifact-1", "revision": 1}}
+{"event": "memory_read", "scope_id": "scope-player-one", "records": 1, "session": "entirely-new-session", "turn_id": "new-turn-000000000001"}
+ok
+test_prepare_does_not_save_when_model_has_not_completed (test_game.GameTests.test_prepare_does_not_save_when_model_has_not_completed) ... {"event": "memory_read", "scope_id": "scope-player-one", "records": 0, "session": "session-a", "turn_id": "new-turn-000000000003"}
+ok
+test_repairing_relationship_unlocks_reward_with_real_rule_changes (test_game.GameTests.test_repairing_relationship_unlocks_reward_with_real_rule_changes) ... {"event": "memory_read", "scope_id": "scope-player-one", "records": 0, "session": "session-a", "turn_id": "turn-00000000000000000001"}
+{"event": "memory_written", "scope_id": "scope-player-one", "turn_id": "turn-00000000000000000001", "turn": 1, "artifact": {"scope_id": "scope-player-one", "family": "atomic-memory", "artifact_id": "artifact-1", "revision": 1}}
+{"event": "memory_read", "scope_id": "scope-player-one", "records": 1, "session": "session-a", "turn_id": "turn-00000000000000000002"}
+{"event": "memory_written", "scope_id": "scope-player-one", "turn_id": "turn-00000000000000000002", "turn": 2, "artifact": {"scope_id": "scope-player-one", "family": "atomic-memory", "artifact_id": "artifact-2", "revision": 1}}
+{"event": "memory_read", "scope_id": "scope-player-one", "records": 2, "session": "session-a", "turn_id": "turn-00000000000000000003"}
+{"event": "memory_written", "scope_id": "scope-player-one", "turn_id": "turn-00000000000000000003", "turn": 3, "artifact": {"scope_id": "scope-player-one", "family": "atomic-memory", "artifact_id": "artifact-3", "revision": 1}}
+ok
+test_repeat_gifts_do_not_farm_favor (test_game.GameTests.test_repeat_gifts_do_not_farm_favor) ... {"event": "memory_read", "scope_id": "scope-player-one", "records": 0, "session": "session-a", "turn_id": "turn-00000000000000000001"}
+{"event": "memory_written", "scope_id": "scope-player-one", "turn_id": "turn-00000000000000000001", "turn": 1, "artifact": {"scope_id": "scope-player-one", "family": "atomic-memory", "artifact_id": "artifact-1", "revision": 1}}
+{"event": "memory_read", "scope_id": "scope-player-one", "records": 1, "session": "session-a", "turn_id": "turn-00000000000000000002"}
+{"event": "memory_written", "scope_id": "scope-player-one", "turn_id": "turn-00000000000000000002", "turn": 2, "artifact": {"scope_id": "scope-player-one", "family": "atomic-memory", "artifact_id": "artifact-2", "revision": 1}}
+ok
+test_reset_preserves_audit_but_excludes_previous_chapter_from_model_context (test_game.GameTests.test_reset_preserves_audit_but_excludes_previous_chapter_from_model_context) ... {"event": "memory_read", "scope_id": "scope-player-one", "records": 0, "session": "session-a", "turn_id": "turn-00000000000000000001"}
+{"event": "memory_written", "scope_id": "scope-player-one", "turn_id": "turn-00000000000000000001", "turn": 1, "artifact": {"scope_id": "scope-player-one", "family": "atomic-memory", "artifact_id": "artifact-1", "revision": 1}}
+{"event": "memory_read", "scope_id": "scope-player-one", "records": 1, "session": "session-a", "turn_id": "turn-00000000000000000002"}
+{"event": "memory_written", "scope_id": "scope-player-one", "turn_id": "turn-00000000000000000002", "turn": 2, "artifact": {"scope_id": "scope-player-one", "family": "atomic-memory", "artifact_id": "artifact-2", "revision": 1}}
+{"event": "memory_read", "scope_id": "scope-player-one", "records": 2, "session": "new-session", "turn_id": "new-turn-000000000006"}
+ok
+test_retried_commit_is_idempotent_even_after_game_restart (test_game.GameTests.test_retried_commit_is_idempotent_even_after_game_restart) ... {"event": "memory_read", "scope_id": "scope-player-one", "records": 0, "session": "session-a", "turn_id": "new-turn-000000000005"}
+{"event": "memory_written", "scope_id": "scope-player-one", "turn_id": "new-turn-000000000005", "turn": 1, "artifact": {"scope_id": "scope-player-one", "family": "atomic-memory", "artifact_id": "artifact-1", "revision": 1}}
+ok
+test_storage_failure_cannot_report_a_success_and_retry_can_recover (test_game.GameTests.test_storage_failure_cannot_report_a_success_and_retry_can_recover) ... {"event": "memory_read", "scope_id": "scope-player-one", "records": 0, "session": "session-a", "turn_id": "new-turn-000000000004"}
+{"event": "memory_written", "scope_id": "scope-player-one", "turn_id": "new-turn-000000000004", "turn": 1, "artifact": {"scope_id": "scope-player-one", "family": "atomic-memory", "artifact_id": "artifact-1", "revision": 1}}
+ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.005s
+
+OK

@@ -1,0 +1,6 @@
+.dify-dev/
+dify/.env
+dify/.venv/
+dify/.runtime/
+dify/**/__pycache__/
+dify/.pytest_cache/

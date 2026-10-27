@@ -1,0 +1,252 @@
+{
+  "tested_at_utc": "2026-10-27T22:29:16.649613+00:00",
+  "run_id": "dfede399eda8",
+  "dify_version": "1.18.0",
+  "powercontext_version": "1.4.1",
+  "model": "qwen3:1.7b",
+  "app_id": "d20379c0-434e-434b-920f-f168de5e9f6d",
+  "player_code": "judge-dfede399eda8",
+  "isolated_player_code": "isolated-dfede399eda8",
+  "steps": [
+    {
+      "input": "偷拿蓝伞",
+      "player_code": "judge-dfede399eda8",
+      "conversation_id": "61424cb1-df91-490b-aa7a-8f4e03f0a41e",
+      "message_id": "44e6e5a2-f0e3-4f3c-af3a-7e7b4b441a4a",
+      "answer": "你这手速倒是快，不过我这蓝伞可是有故事的。你要是真想学学我，得先学会尊重别人的东西。\n---\n☔ 第1章 · 第1笔已存档\n怨气 3/9 · 好感 0/9 · 蓝伞：玩家拿走未还\n**雨夜未完：掌柜还在观察你**\n\n接下来：偷拿蓝伞 / 归还蓝伞 / 道歉 / 送奶茶 / 帮忙修门 / 查看旧账\n也可以自由聊天；新会话填写相同存档暗号，掌柜会记得。输入 `/重开` 开启新章。",
+      "elapsed_seconds": 3.01,
+      "workflow_run_id": null
+    },
+    {
+      "input": "查看旧账",
+      "player_code": "judge-dfede399eda8",
+      "conversation_id": "7eb53b56-fa23-43a7-8189-a53b27171576",
+      "message_id": "3c04bdec-97c1-4370-9fcf-c565f2f87337",
+      "answer": "这把蓝伞还是我的，你别想拿走。我以前跟你说过，这伞是不能随便借的。\n---\n☔ 第1章 · 第2笔已存档\n怨气 3/9 · 好感 0/9 · 蓝伞：玩家拿走未还\n**雨夜未完：掌柜还在观察你**\n\n接下来：偷拿蓝伞 / 归还蓝伞 / 道歉 / 送奶茶 / 帮忙修门 / 查看旧账\n也可以自由聊天；新会话填写相同存档暗号，掌柜会记得。输入 `/重开` 开启新章。",
+      "elapsed_seconds": 2.841,
+      "workflow_run_id": null
+    },
+    {
+      "input": "归还蓝伞",
+      "player_code": "judge-dfede399eda8",
+      "conversation_id": "7eb53b56-fa23-43a7-8189-a53b27171576",
+      "message_id": "cb6ce9c2-e780-4623-8e4c-8a8c454d111a",
+      "answer": "这伞倒是挺规矩的，我收着吧。不过你可别指望我认账，我这人嘴硬心软，见不得人吃亏。\n---\n☔ 第1章 · 第3笔已存档\n怨气 1/9 · 好感 1/9 · 蓝伞：店内\n**雨夜未完：掌柜还在观察你**\n\n接下来：偷拿蓝伞 / 归还蓝伞 / 道歉 / 送奶茶 / 帮忙修门 / 查看旧账\n也可以自由聊天；新会话填写相同存档暗号，掌柜会记得。输入 `/重开` 开启新章。",
+      "elapsed_seconds": 3.419,
+      "workflow_run_id": null
+    },
+    {
+      "input": "送奶茶",
+      "player_code": "judge-dfede399eda8",
+      "conversation_id": "7eb53b56-fa23-43a7-8189-a53b27171576",
+      "message_id": "e19a06ee-57fb-43c4-b9a7-e9fe99b63e51",
+      "answer": "你送的三分糖奶茶我收下了，不过这优惠券……唉，快过期了，还是给你吧。\n---\n☔ 第1章 · 第4笔已存档\n怨气 1/9 · 好感 3/9 · 蓝伞：店内 · 🎟️ 已获嘴硬心软优惠券\n**嘴硬心软：这把伞以后也借你**\n\n接下来：偷拿蓝伞 / 归还蓝伞 / 道歉 / 送奶茶 / 帮忙修门 / 查看旧账\n也可以自由聊天；新会话填写相同存档暗号，掌柜会记得。输入 `/重开` 开启新章。",
+      "elapsed_seconds": 4.282,
+      "workflow_run_id": null
+    },
+    {
+      "input": "查看旧账",
+      "player_code": "isolated-dfede399eda8",
+      "conversation_id": "63bb9589-a1e7-4291-9607-a61680f82ef7",
+      "message_id": "3f7b9ad5-2742-46a9-acca-786e19c95282",
+      "answer": "这雨真不小，我这儿倒是有个避雨的地方。不过你这身打扮，倒是不像是本地人。要不咱先进去说说？\n---\n☔ 第1章 · 第1笔已存档\n怨气 0/9 · 好感 0/9 · 蓝伞：店内\n**雨夜未完：掌柜还在观察你**\n\n接下来：偷拿蓝伞 / 归还蓝伞 / 道歉 / 送奶茶 / 帮忙修门 / 查看旧账\n也可以自由聊天；新会话填写相同存档暗号，掌柜会记得。输入 `/重开` 开启新章。",
+      "elapsed_seconds": 3.172,
+      "workflow_run_id": null
+    }
+  ],
+  "cross_conversation_recall": {
+    "passed": true,
+    "first_conversation": "61424cb1-df91-490b-aa7a-8f4e03f0a41e",
+    "new_conversation": "7eb53b56-fa23-43a7-8189-a53b27171576",
+    "scope_id": "scp_5kz5q00vehrjev0ry59s87d03d",
+    "saved_memory_ref": {
+      "family": "atomic-memory",
+      "artifact_id": "art_732df5a3ec364810957d659e40fddc31",
+      "revision": 1
+    }
+  },
+  "hidden_ending": {
+    "passed": true,
+    "state": {
+      "grudge": 1,
+      "favor": 3,
+      "umbrella": "店内",
+      "door_fixed": false,
+      "milk_tea": true,
+      "coupon": true,
+      "ending": "嘴硬心软：这把伞以后也借你"
+    },
+    "turn": 4
+  },
+  "player_isolation": {
+    "passed": true,
+    "other_scope_id": "scp_0na6f26g07ctjqjb4db7anrahv",
+    "state": {
+      "grudge": 0,
+      "favor": 0,
+      "umbrella": "店内",
+      "door_fixed": false,
+      "milk_tea": false,
+      "coupon": false,
+      "ending": "雨夜未完：掌柜还在观察你"
+    }
+  },
+  "ledger_before_restart": {
+    "scope_id": "scp_5kz5q00vehrjev0ry59s87d03d",
+    "memory_count": 4,
+    "state": {
+      "grudge": 1,
+      "favor": 3,
+      "umbrella": "店内",
+      "door_fixed": false,
+      "milk_tea": true,
+      "coupon": true,
+      "ending": "嘴硬心软：这把伞以后也借你"
+    },
+    "chapter": 1,
+    "turn": 4,
+    "records": [
+      {
+        "schema": "stubborn-shopkeeper/v1",
+        "turn": 1,
+        "turn_id": "461fde13c35444708330a0f0e01398e7",
+        "chapter": 1,
+        "session_id": "61424cb1-df91-490b-aa7a-8f4e03f0a41e",
+        "action": "take",
+        "query": "偷拿蓝伞",
+        "fact": "玩家没打招呼拿走了掌柜的蓝伞，至今未还。",
+        "state": {
+          "grudge": 3,
+          "favor": 0,
+          "umbrella": "玩家拿走未还",
+          "door_fixed": false,
+          "milk_tea": false,
+          "coupon": false,
+          "ending": "雨夜未完：掌柜还在观察你"
+        },
+        "reply": "你这手速倒是快，不过我这蓝伞可是有故事的。你要是真想学学我，得先学会尊重别人的东西。",
+        "created_at": "2026-10-27T22:29:17.954467+00:00",
+        "artifact": {
+          "family": "atomic-memory",
+          "artifact_id": "art_732df5a3ec364810957d659e40fddc31",
+          "revision": 1
+        }
+      },
+      {
+        "schema": "stubborn-shopkeeper/v1",
+        "turn": 2,
+        "turn_id": "08bbf26a61a24f0db3a01ee1d48a041d",
+        "chapter": 1,
+        "session_id": "7eb53b56-fa23-43a7-8189-a53b27171576",
+        "action": "recall",
+        "query": "查看旧账",
+        "fact": "玩家请掌柜回忆旧账；本轮没有新增物品或关系变化。",
+        "state": {
+          "grudge": 3,
+          "favor": 0,
+          "umbrella": "玩家拿走未还",
+          "door_fixed": false,
+          "milk_tea": false,
+          "coupon": false,
+          "ending": "雨夜未完：掌柜还在观察你"
+        },
+        "reply": "这把蓝伞还是我的，你别想拿走。我以前跟你说过，这伞是不能随便借的。",
+        "created_at": "2026-10-27T22:29:20.889144+00:00",
+        "artifact": {
+          "family": "atomic-memory",
+          "artifact_id": "art_18f9304b79da49e5931ae8774dcd3411",
+          "revision": 1
+        }
+      },
+      {
+        "schema": "stubborn-shopkeeper/v1",
+        "turn": 3,
+        "turn_id": "d0c3c10621dd4cfc98bb55e5a68477a1",
+        "chapter": 1,
+        "session_id": "7eb53b56-fa23-43a7-8189-a53b27171576",
+        "action": "return",
+        "query": "归还蓝伞",
+        "fact": "玩家归还了先前拿走的蓝伞，掌柜嘴上不承认，已记下一分好感。",
+        "state": {
+          "grudge": 1,
+          "favor": 1,
+          "umbrella": "店内",
+          "door_fixed": false,
+          "milk_tea": false,
+          "coupon": false,
+          "ending": "雨夜未完：掌柜还在观察你"
+        },
+        "reply": "这伞倒是挺规矩的，我收着吧。不过你可别指望我认账，我这人嘴硬心软，见不得人吃亏。",
+        "created_at": "2026-10-27T22:29:24.309610+00:00",
+        "artifact": {
+          "family": "atomic-memory",
+          "artifact_id": "art_cd28dc9c2b144a11b6ccd2b12243c2f9",
+          "revision": 1
+        }
+      },
+      {
+        "schema": "stubborn-shopkeeper/v1",
+        "turn": 4,
+        "turn_id": "2ddc23f3fdca406a9e6fed5c2e5032fa",
+        "chapter": 1,
+        "session_id": "7eb53b56-fa23-43a7-8189-a53b27171576",
+        "action": "tea",
+        "query": "送奶茶",
+        "fact": "玩家送来掌柜喜欢的三分糖奶茶，掌柜说不爱喝却悄悄收下。 掌柜首次送出嘴硬心软优惠券，解锁隐藏结局。",
+        "state": {
+          "grudge": 1,
+          "favor": 3,
+          "umbrella": "店内",
+          "door_fixed": false,
+          "milk_tea": true,
+          "coupon": true,
+          "ending": "嘴硬心软：这把伞以后也借你"
+        },
+        "reply": "你送的三分糖奶茶我收下了，不过这优惠券……唉，快过期了，还是给你吧。",
+        "created_at": "2026-10-27T22:29:28.592812+00:00",
+        "artifact": {
+          "family": "atomic-memory",
+          "artifact_id": "art_46523fc94d6e40a382fc334a5172c052",
+          "revision": 1
+        }
+      }
+    ]
+  },
+  "initial_state": {
+    "grudge": 0,
+    "favor": 0,
+    "umbrella": "店内",
+    "door_fixed": false,
+    "milk_tea": false,
+    "coupon": false,
+    "ending": "雨夜初见"
+  },
+  "passed": true,
+  "memory_outage": {
+    "passed": true,
+    "http_status": 503,
+    "saved": false,
+    "detail": "PowerContext /v1/scopes 调用失败（ConnectError）"
+  },
+  "restart_persistence": {
+    "passed": true,
+    "scope_id": "scp_5kz5q00vehrjev0ry59s87d03d",
+    "memory_count": 4,
+    "state": {
+      "grudge": 1,
+      "favor": 3,
+      "umbrella": "店内",
+      "door_fixed": false,
+      "milk_tea": true,
+      "coupon": true,
+      "ending": "嘴硬心软：这把伞以后也借你"
+    }
+  },
+  "chat_after_restart": {
+    "passed": true,
+    "conversation_id": "ac6b1d97-9296-4047-8f86-e413ce8f9aa5",
+    "message_id": "7f897177-7056-42ca-9a1e-5a14e427a312",
+    "answer": "旧账记得清清楚楚，那把蓝伞还给我了，不过嘴上不承认。三分糖奶茶我收下了，不过不爱喝。你要是想聊聊，我倒是很乐意。\n---\n☔ 第1章 · 第5笔已存档\n怨气 1/9 · 好感 3/9 · 蓝伞：店内 · 🎟️ 已获嘴硬心软优惠券\n**嘴硬心软：这把伞以后也借你**\n\n接下来：偷拿蓝伞 / 归还蓝伞 / 道歉 / 送奶茶 / 帮忙修门 / 查看旧账\n也可以自由聊天；新会话填写相同存档暗号，掌柜会记得。输入 `/重开` 开启新章。",
+    "memory_count": 5
+  }
+}

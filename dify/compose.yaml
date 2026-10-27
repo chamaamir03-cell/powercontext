@@ -1,0 +1,79 @@
+name: ob-npc
+services:
+  memory:
+    build:
+      context: .
+      dockerfile: deploy/powercontext.Dockerfile
+      network: host
+      args:
+        HTTP_PROXY: ${BUILD_HTTP_PROXY:-}
+        HTTPS_PROXY: ${BUILD_HTTPS_PROXY:-}
+    image: ob-npc-powercontext:1.4.1
+    environment:
+      POWERCONTEXT_HOME: /data
+      POWERCONTEXT_SERVER_HTTP_HOST: 0.0.0.0
+      POWERCONTEXT_SERVER_HTTP_PORT: "8000"
+      POWERCONTEXT_SERVER_AUTH_ENABLED: "true"
+      POWERCONTEXT_SERVER_AUTH_TOKEN: ${POWERCONTEXT_TOKEN:?Generate dify/.env first}
+      POWERCONTEXT_SERVER_DATABASE_KIND: sqlite
+      POWERCONTEXT_SERVER_DATABASE_URL: sqlite+aiosqlite:////data/powercontext.db
+      POWERCONTEXT_SERVER_MCP_ENABLED: "false"
+    volumes:
+      - memory_data:/data
+    ports:
+      - "127.0.0.1:${POWERCONTEXT_PORT:-18081}:8000"
+    networks:
+      default:
+        aliases: [npc-memory]
+    healthcheck:
+      test: [CMD, python, -c, "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health/ready', timeout=5)"]
+      interval: 5s
+      timeout: 8s
+      retries: 30
+    restart: unless-stopped
+  game:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+      network: host
+      args:
+        HTTP_PROXY: ${BUILD_HTTP_PROXY:-}
+        HTTPS_PROXY: ${BUILD_HTTPS_PROXY:-}
+    image: ob-npc-game:1.0.0
+    environment:
+      POWERCONTEXT_URL: http://npc-memory:8000
+      POWERCONTEXT_TOKEN: ${POWERCONTEXT_TOKEN:?Generate dify/.env first}
+      GAME_TOKEN: ${GAME_TOKEN:?Generate dify/.env first}
+    depends_on:
+      memory:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:${GAME_PORT:-18082}:8090"
+    volumes:
+      - ./.env:/run/npc.env:ro
+      - ./.runtime:/app/runtime
+    networks:
+      default:
+        aliases: [npc-game]
+    restart: unless-stopped
+  model:
+    image: ${OLLAMA_IMAGE:-ollama/ollama:0.40.11}
+    environment:
+      OLLAMA_HOST: 0.0.0.0:11434
+      OLLAMA_NUM_PARALLEL: "1"
+      OLLAMA_MAX_LOADED_MODELS: "1"
+    volumes:
+      - model_data:/root/.ollama
+    ports:
+      - "127.0.0.1:${MODEL_PORT:-11435}:11434"
+    networks:
+      default:
+        aliases: [npc-model]
+    mem_limit: 3g
+    restart: unless-stopped
+networks:
+  default:
+    name: ob-npc-net
+volumes:
+  memory_data:
+  model_data:

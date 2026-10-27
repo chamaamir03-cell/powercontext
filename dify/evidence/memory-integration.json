@@ -1,0 +1,17 @@
+{
+  "tested_at_utc": "2026-10-27T19:58:58.715662+00:00",
+  "passed": true,
+  "test_kind": "real PowerContext API integration; fixed test reply, not a Dify/model run",
+  "player_code": "component-a5a48be50a36",
+  "scope_id": "scp_785qre8gyst9xrtw6pvk86777n",
+  "saved_memory_ref": {
+    "family": "atomic-memory",
+    "artifact_id": "art_4ed0f1443567492d97235948158eff25",
+    "revision": 1
+  },
+  "new_session_recalled_facts": [
+    "玩家没打招呼拿走了掌柜的蓝伞，至今未还。"
+  ],
+  "idempotency_passed": true,
+  "player_isolation_passed": true
+}

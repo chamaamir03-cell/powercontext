@@ -1,0 +1,25 @@
+{
+  "tested_at_utc": "2026-10-27T22:32:43.824Z",
+  "passed": true,
+  "test_kind": "real native Dify browser, new conversation using the same save code",
+  "player_code": "judge-dfede399eda8",
+  "conversation_id": "1203b932-00c5-4f3e-b440-1171afd1fb1d",
+  "previous_memory_count": 5,
+  "memory_count": 6,
+  "reply": "旧账记得清清楚楚，那把蓝伞还给我了，不过嘴上不承认。三分糖奶茶我收下了，不过不爱喝。你要是想聊聊，我倒是可以跟你讲讲青石镇的故事。",
+  "memory_ref": {
+    "family": "atomic-memory",
+    "artifact_id": "art_e2666f5327c04df8b7672136fa545622",
+    "revision": 1
+  },
+  "scope_id": "scp_5kz5q00vehrjev0ry59s87d03d",
+  "state": {
+    "grudge": 1,
+    "favor": 3,
+    "umbrella": "店内",
+    "door_fixed": false,
+    "milk_tea": true,
+    "coupon": true,
+    "ending": "嘴硬心软：这把伞以后也借你"
+  }
+}

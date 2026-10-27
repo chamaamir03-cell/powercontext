@@ -1,0 +1,485 @@
+app:
+  name: 嘴硬掌柜：这笔账我记下了
+  description: 在雨夜小店惹事、赔礼、修门；用同一个存档暗号开始新会话，掌柜照样记得旧账。试着把嘴硬的掌柜哄成自己人，解锁雨夜小店的隐藏结局。
+  icon: ☔
+  icon_background: '#FFF0D6'
+  mode: advanced-chat
+  use_icon_as_answer_icon: true
+dependencies: []
+kind: app
+version: 0.3.1
+workflow:
+  conversation_variables: []
+  environment_variables:
+  - id: 80839b4b-86dc-5503-a2d5-cb10a102b1a9
+    name: GAME_API_URL
+    value: http://npc-game:8090
+    value_type: string
+    selector:
+    - env
+    - GAME_API_URL
+    description: 账本服务内部地址
+  - id: cf4a17a8-b9cb-5b8a-85a2-5d4bfd43f1e0
+    name: GAME_TOKEN
+    value: ''
+    value_type: secret
+    selector:
+    - env
+    - GAME_TOKEN
+    description: 填入本地dify/.env中的GAME_TOKEN
+  - id: 9bd21645-c257-5cdf-bde0-16cc646ed574
+    name: OLLAMA_URL
+    value: http://npc-model:11434
+    value_type: string
+    selector:
+    - env
+    - OLLAMA_URL
+    description: 模型服务内部地址
+  - id: 7054aa6b-179e-5ce9-ba17-e3aed6b34fde
+    name: MODEL_NAME
+    value: qwen3:1.7b
+    value_type: string
+    selector:
+    - env
+    - MODEL_NAME
+    description: 已下载的本地模型
+  features:
+    file_upload:
+      enabled: false
+    opening_statement: 雨停之前，沈不服的小卖部都不打烊。先填一个存档暗号，再说‘开始’。想改变物品或关系，请发送动作原文：偷拿蓝伞、归还蓝伞、道歉、送奶茶、帮忙修门。其他输入用于自由聊天。换个会话、用同一暗号回来，掌柜仍会翻旧账；输入
+      /重开 可开启新章。
+    suggested_questions:
+    - 开始
+    - 偷拿蓝伞
+    - 送奶茶
+    - 查看旧账
+    suggested_questions_after_answer:
+      enabled: false
+    retriever_resource:
+      enabled: false
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    nodes:
+    - id: start
+      type: custom
+      width: 244
+      height: 100
+      position:
+        x: 80
+        y: 280
+      sourcePosition: right
+      targetPosition: left
+      data:
+        type: start
+        title: 进店 · 存档暗号
+        desc: ''
+        selected: false
+        variables:
+        - variable: player_code
+          label: 存档暗号（4—48位英文字母、数字、_ 或 -，新会话保持相同）
+          type: text-input
+          required: true
+          max_length: 48
+          options: []
+    - id: prepare_body
+      type: custom
+      width: 244
+      height: 100
+      position:
+        x: 390
+        y: 280
+      sourcePosition: right
+      targetPosition: left
+      data:
+        type: code
+        title: 整理本轮输入
+        desc: ''
+        selected: false
+        code_language: python3
+        code: "import json\nimport re\nimport uuid\n\ndef main(player_code: str, query: str, session_id:\
+          \ str) -> dict:\n    player_code = player_code.strip()\n    if not re.fullmatch(r\"[A-Za-z0-9_-]{4,48}\"\
+          , player_code):\n        raise ValueError(\"存档暗号应为4—48位字母、数字、下划线或连字符。\")\n    if not query.strip()\
+          \ or len(query) > 500:\n        raise ValueError(\"请输入1—500字的动作或台词。\")\n    turn_id = uuid.uuid4().hex\n\
+          \    payload = {\"player_code\": player_code, \"query\": query,\n               \"session_id\"\
+          : session_id, \"turn_id\": turn_id}\n    return {\"body\": json.dumps(payload, ensure_ascii=False),\n\
+          \            \"turn_id\": turn_id, \"player_code\": player_code}"
+        variables:
+        - variable: player_code
+          value_selector:
+          - start
+          - player_code
+        - variable: query
+          value_selector:
+          - sys
+          - query
+        - variable: session_id
+          value_selector:
+          - sys
+          - conversation_id
+        outputs:
+          body:
+            type: string
+          turn_id:
+            type: string
+          player_code:
+            type: string
+    - id: prepare
+      type: custom
+      width: 244
+      height: 100
+      position:
+        x: 700
+        y: 280
+      sourcePosition: right
+      targetPosition: left
+      data:
+        type: http-request
+        title: PowerContext · 读旧账
+        desc: ''
+        selected: false
+        method: post
+        url: '{{#env.GAME_API_URL#}}/turns/prepare'
+        authorization:
+          type: no-auth
+        headers: 'Content-Type: application/json
+
+          X-Game-Token: {{#env.GAME_TOKEN#}}'
+        params: ''
+        ssl_verify: true
+        body:
+          type: json
+          data:
+          - key: ''
+            type: text
+            value: '{{#prepare_body.body#}}'
+        timeout:
+          connect: 10
+          read: 30
+          write: 30
+        retry_config:
+          enabled: true
+          max_retries: 1
+          retry_interval: 1000
+    - id: model_body
+      type: custom
+      width: 244
+      height: 100
+      position:
+        x: 1010
+        y: 280
+      sourcePosition: right
+      targetPosition: left
+      data:
+        type: code
+        title: 把真实旧账交给掌柜
+        desc: ''
+        selected: false
+        code_language: python3
+        code: "import json\n\ndef main(body: str, status_code: int, model_name: str) -> dict:\n    if\
+          \ status_code != 200:\n        raise ValueError(\"掌柜的账本暂时打不开，本轮尚未存档，请稍后再试。\")\n    saved = json.loads(body)\n\
+          \    context = json.loads(saved[\"model_context\"])\n    history = \"；\".join(context[\"旧账事实\"\
+          ]) or \"没有可翻的关键旧账。\"\n    facts = \"；\".join(key + \"：\" + value for key, value in context[\"\
+          现在的事实（优先于历史）\"].items())\n    ledger = (\"\\n\\n来自本局账本的可靠事实：\\n现在：\" + facts +\n           \
+          \   \"\\n历史（只说明当时）：\" + history +\n              \"\\n本轮已发生的事情及回应要求：\" + context[\"本轮回应要点\"\
+          ])\n    player_message = saved[\"player_query\"]\n    if saved.get(\"model_user_hint\"):\n \
+          \       player_message += \"\\n\" + saved[\"model_user_hint\"]\n    payload = {\"model\": model_name,\
+          \ \"stream\": False, \"keep_alive\": \"10m\",\n               \"messages\": [{\"role\": \"system\"\
+          , \"content\": saved[\"system_prompt\"] + ledger},\n                            {\"role\": \"\
+          user\", \"content\": player_message}],\n               \"options\": {\"temperature\": 0.4, \"\
+          top_p\": 0.85, \"num_ctx\": 4096,\n                           \"num_predict\": 240, \"seed\"\
+          : 42,\n                           \"stop\": [\"\\n玩家\", \"\\n\\n玩家\", \"\\n用户\", \"\\n\\n用户\"\
+          ]}}\n    if model_name.startswith(\"qwen3\"):\n        payload[\"think\"] = False\n    return\
+          \ {\"body\": json.dumps(payload, ensure_ascii=False),\n            \"scope_id\": saved[\"scope_id\"\
+          ], \"recalled_memories\": saved[\"memory_count\"],\n            \"memory_context\": saved[\"\
+          model_context\"], \"player_query\": saved[\"player_query\"]}"
+        variables:
+        - variable: body
+          value_selector:
+          - prepare
+          - body
+        - variable: status_code
+          value_selector:
+          - prepare
+          - status_code
+        - variable: model_name
+          value_selector:
+          - env
+          - MODEL_NAME
+        outputs:
+          body:
+            type: string
+          scope_id:
+            type: string
+          recalled_memories:
+            type: number
+          memory_context:
+            type: string
+          player_query:
+            type: string
+    - id: model
+      type: custom
+      width: 244
+      height: 100
+      position:
+        x: 1320
+        y: 280
+      sourcePosition: right
+      targetPosition: left
+      data:
+        type: http-request
+        title: 沈不服 · 现编台词
+        desc: ''
+        selected: false
+        method: post
+        url: '{{#env.OLLAMA_URL#}}/api/chat'
+        authorization:
+          type: no-auth
+        headers: 'Content-Type: application/json'
+        params: ''
+        ssl_verify: true
+        body:
+          type: json
+          data:
+          - key: ''
+            type: text
+            value: '{{#model_body.body#}}'
+        timeout:
+          connect: 10
+          read: 240
+          write: 30
+        retry_config:
+          enabled: false
+          max_retries: 1
+          retry_interval: 1000
+    - id: commit_body
+      type: custom
+      width: 244
+      height: 100
+      position:
+        x: 1630
+        y: 280
+      sourcePosition: right
+      targetPosition: left
+      data:
+        type: code
+        title: 准备存档 · 模型不改规则
+        desc: ''
+        selected: false
+        code_language: python3
+        code: "import json\nimport re\n\ndef main(body: str, status_code: int, player_code: str, turn_id:\
+          \ str) -> dict:\n    if status_code != 200:\n        raise ValueError(\"掌柜暂时组织不好语言，本轮尚未存档，请稍后再试。\"\
+          )\n    reply = json.loads(body).get(\"message\", {}).get(\"content\", \"\").strip()\n    reply\
+          \ = re.sub(r\"<think>.*?</think>\", \"\", reply, flags=re.S).strip()\n    if not reply:\n  \
+          \      raise ValueError(\"掌柜一时没想好怎么接话，本轮尚未存档，请稍后再试。\")\n    payload = {\"player_code\": player_code,\
+          \ \"turn_id\": turn_id, \"reply\": reply[:900]}\n    return {\"body\": json.dumps(payload, ensure_ascii=False)}"
+        variables:
+        - variable: body
+          value_selector:
+          - model
+          - body
+        - variable: status_code
+          value_selector:
+          - model
+          - status_code
+        - variable: player_code
+          value_selector:
+          - prepare_body
+          - player_code
+        - variable: turn_id
+          value_selector:
+          - prepare_body
+          - turn_id
+        outputs:
+          body:
+            type: string
+    - id: commit
+      type: custom
+      width: 244
+      height: 100
+      position:
+        x: 1940
+        y: 280
+      sourcePosition: right
+      targetPosition: left
+      data:
+        type: http-request
+        title: PowerContext · 写下这一笔
+        desc: ''
+        selected: false
+        method: post
+        url: '{{#env.GAME_API_URL#}}/turns/commit'
+        authorization:
+          type: no-auth
+        headers: 'Content-Type: application/json
+
+          X-Game-Token: {{#env.GAME_TOKEN#}}'
+        params: ''
+        ssl_verify: true
+        body:
+          type: json
+          data:
+          - key: ''
+            type: text
+            value: '{{#commit_body.body#}}'
+        timeout:
+          connect: 10
+          read: 30
+          write: 30
+        retry_config:
+          enabled: true
+          max_retries: 1
+          retry_interval: 1000
+    - id: format
+      type: custom
+      width: 244
+      height: 100
+      position:
+        x: 2250
+        y: 280
+      sourcePosition: right
+      targetPosition: left
+      data:
+        type: code
+        title: 只展示已确认存档
+        desc: ''
+        selected: false
+        code_language: python3
+        code: "import json\n\ndef main(body: str, status_code: int) -> dict:\n    if status_code != 200:\n\
+          \        raise ValueError(\"存档尚未确认，本轮不能显示保存成功，请重新发送输入。\")\n    saved = json.loads(body)\n  \
+          \  return {\"answer\": saved[\"reply\"] + saved[\"footer\"], \"turn\": saved[\"turn\"],\n  \
+          \          \"scope_id\": saved[\"scope_id\"],\n            \"memory_ref\": json.dumps(saved[\"\
+          memory_ref\"], ensure_ascii=False)}"
+        variables:
+        - variable: body
+          value_selector:
+          - commit
+          - body
+        - variable: status_code
+          value_selector:
+          - commit
+          - status_code
+        outputs:
+          answer:
+            type: string
+          turn:
+            type: number
+          scope_id:
+            type: string
+          memory_ref:
+            type: string
+    - id: answer
+      type: custom
+      width: 244
+      height: 100
+      position:
+        x: 2560
+        y: 280
+      sourcePosition: right
+      targetPosition: left
+      data:
+        type: answer
+        title: 掌柜开口了
+        desc: ''
+        selected: false
+        answer: '{{#format.answer#}}'
+        variables: []
+    edges:
+    - id: start-prepare_body
+      type: custom
+      source: start
+      sourceHandle: source
+      target: prepare_body
+      targetHandle: target
+      data:
+        sourceType: start
+        targetType: code
+        isInIteration: false
+        isInLoop: false
+    - id: prepare_body-prepare
+      type: custom
+      source: prepare_body
+      sourceHandle: source
+      target: prepare
+      targetHandle: target
+      data:
+        sourceType: code
+        targetType: http-request
+        isInIteration: false
+        isInLoop: false
+    - id: prepare-model_body
+      type: custom
+      source: prepare
+      sourceHandle: source
+      target: model_body
+      targetHandle: target
+      data:
+        sourceType: http-request
+        targetType: code
+        isInIteration: false
+        isInLoop: false
+    - id: model_body-model
+      type: custom
+      source: model_body
+      sourceHandle: source
+      target: model
+      targetHandle: target
+      data:
+        sourceType: code
+        targetType: http-request
+        isInIteration: false
+        isInLoop: false
+    - id: model-commit_body
+      type: custom
+      source: model
+      sourceHandle: source
+      target: commit_body
+      targetHandle: target
+      data:
+        sourceType: http-request
+        targetType: code
+        isInIteration: false
+        isInLoop: false
+    - id: commit_body-commit
+      type: custom
+      source: commit_body
+      sourceHandle: source
+      target: commit
+      targetHandle: target
+      data:
+        sourceType: code
+        targetType: http-request
+        isInIteration: false
+        isInLoop: false
+    - id: commit-format
+      type: custom
+      source: commit
+      sourceHandle: source
+      target: format
+      targetHandle: target
+      data:
+        sourceType: http-request
+        targetType: code
+        isInIteration: false
+        isInLoop: false
+    - id: format-answer
+      type: custom
+      source: format
+      sourceHandle: source
+      target: answer
+      targetHandle: target
+      data:
+        sourceType: code
+        targetType: answer
+        isInIteration: false
+        isInLoop: false
+    viewport:
+      x: 0
+      y: 0
+      zoom: 0.55

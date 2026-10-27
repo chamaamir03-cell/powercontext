@@ -1,0 +1,21 @@
+{
+  "tested_at_utc": "2026-10-27T21:22:36.893021+00:00",
+  "test_kind": "actual PowerContext ledger after complete WSL shutdown and relocation; no model inference",
+  "passed": true,
+  "scope_id": "scp_785qre8gyst9xrtw6pvk86777n",
+  "memory_count": 1,
+  "original_memory_ref": {
+    "family": "atomic-memory",
+    "artifact_id": "art_4ed0f1443567492d97235948158eff25",
+    "revision": 1
+  },
+  "state": {
+    "grudge": 3,
+    "favor": 0,
+    "umbrella": "玩家拿走未还",
+    "door_fixed": false,
+    "milk_tea": false,
+    "coupon": false,
+    "ending": "雨夜未完：掌柜还在观察你"
+  }
+}

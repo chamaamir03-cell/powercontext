@@ -1,0 +1,85 @@
+{
+  "host": "Linux-6.18.54.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "host_python": "3.12.3",
+  "docker_engine": "27.3.0",
+  "docker_compose": "2.31.0",
+  "ollama": {
+    "version": "0.40.11"
+  },
+  "model": {
+    "name": "qwen3:1.7b",
+    "digest": "8f68893c685c3ddff2aa3fffce2aa60a30bb2da65ca488b61fff134a4d1730e7",
+    "size": 1359293444,
+    "details": {
+      "parent_model": "",
+      "format": "gguf",
+      "family": "qwen3",
+      "families": [
+        "qwen3"
+      ],
+      "parameter_size": "2.0B",
+      "quantization_level": "Q4_K_M",
+      "context_length": 40960,
+      "embedding_length": 2048,
+      "runner": "ggml"
+    }
+  },
+  "images": [
+    {
+      "image": "langgenius/dify-api:1.18.0",
+      "id": "sha256:1bd3e079fd83a9721b1c387d4d13ae28da5642669be3c5700e980d4e3a3156cc",
+      "architecture": "amd64",
+      "os": "linux",
+      "size_bytes": 2863573670
+    },
+    {
+      "image": "langgenius/dify-web:1.18.0",
+      "id": "sha256:0569ecd5ff19866e2fe67e2cbac49513250efd3c3157e8e9a75ed52a0111cbcf",
+      "architecture": "amd64",
+      "os": "linux",
+      "size_bytes": 643896951
+    },
+    {
+      "image": "langgenius/dify-sandbox:0.2.15",
+      "id": "sha256:4782db7ea946f2f4a42ad1016ea32ec764bbe1287dbb584eff8c741d63b953d9",
+      "architecture": "amd64",
+      "os": "linux",
+      "size_bytes": 585338158
+    },
+    {
+      "image": "langgenius/dify-plugin-daemon:0.6.10-local",
+      "id": "sha256:7b5516cf685ee2aa3eb2504677d2a7440d0670b74b566793882463c293f74cda",
+      "architecture": "amd64",
+      "os": "linux",
+      "size_bytes": 1587707774
+    },
+    {
+      "image": "ob-npc-powercontext:1.4.1",
+      "id": "sha256:68bd01334f5fb575fa50b78b12c975b2ba2831417ad8a446c156383a8c437b8f",
+      "architecture": "amd64",
+      "os": "linux",
+      "size_bytes": 476269848
+    },
+    {
+      "image": "ob-npc-game:1.0.0",
+      "id": "sha256:23133cc724fadde9249d7624e7b6f8ef61689247b93ba5a4652d06ef90dcc70a",
+      "architecture": "amd64",
+      "os": "linux",
+      "size_bytes": 147998432
+    },
+    {
+      "image": "ob-npc-ollama-cpu:0.40.11",
+      "id": "sha256:4e9bae55d16a07ab724587e124d6559933f7a6bc0111688475672de73ec35009",
+      "architecture": "amd64",
+      "os": "linux",
+      "size_bytes": 203870236
+    }
+  ],
+  "source_file_sha256": {
+    "backend/app.py": "4ddd07ad7398162de0d895215189d31468560728b510a0e7d6f97643aa47eaf3",
+    "backend/requirements.txt": "7c3619d80db1c5d501bc2872cb3a13e9e6d4853f520f345737cc6503b7cb5db6",
+    "dsl/npc-chatflow.yml": "515b7f4edc035449cebb488c0813d0b87cc69b29adfa585419c38a2198779f37",
+    "compose.yaml": "485acc31d85c7220db702bdd2327d37e91564de978f1dbf9b4895e6fa7093cf6"
+  },
+  "cpu_only_build": true
+}
