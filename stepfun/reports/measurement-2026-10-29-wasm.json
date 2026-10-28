@@ -1,0 +1,541 @@
+{
+  "measuredAt": "2026-10-28T23:29:34.551Z",
+  "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.144.0 Chrome/150.0.7871.250 Electron/43.8.3 Safari/537.36",
+  "model": "Xenova/bge-small-zh-v1.5 (BGE small Chinese v1.5)",
+  "modelDimension": 512,
+  "quantization": "WebGPU FP16 / WASM INT8 (Q8); FP32 only used as evaluation baseline",
+  "backendPreference": "wasm",
+  "device": {
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.144.0 Chrome/150.0.7871.250 Electron/43.8.3 Safari/537.36",
+    "hardwareConcurrency": 32,
+    "webgpuAvailable": true,
+    "simulatedWebGPUUnavailable": false
+  },
+  "operation": "fixed_retrieval_quality_and_performance_benchmark",
+  "metrics": {
+    "model": "Xenova/bge-small-zh-v1.5",
+    "quantizationComparison": [
+      {
+        "profile": "fp32",
+        "runtimeInfo": {
+          "backend": "wasm",
+          "dtype": "fp32"
+        },
+        "modelBytes": 94851877,
+        "coldRound": {
+          "round": 1,
+          "phase": "cold",
+          "modelBytes": 94851877,
+          "modelDownloadMs": 110.59499999973923,
+          "modelInitializationMs": 465.3950000004843,
+          "documentVectorizationMs": 262.69499999983236,
+          "documentVectorsPerSecond": 22.840175869368768,
+          "queryVectorizationMs": 162.2050000000745,
+          "writeRefreshMs": 1353.005026999861,
+          "databaseSearchMs": 5.35628500006472,
+          "endToEndMs": 2386.0327370003797,
+          "recallAt3": 1,
+          "ndcgAt3": 0.9166666666666666
+        },
+        "warmRounds": [
+          {
+            "round": 2,
+            "phase": "warm",
+            "modelBytes": 94851877,
+            "modelDownloadMs": 0,
+            "modelInitializationMs": 0,
+            "documentVectorizationMs": 148.6750000002794,
+            "documentVectorsPerSecond": 40.356482259887166,
+            "queryVectorizationMs": 164.035000000149,
+            "writeRefreshMs": 2512.039984999923,
+            "databaseSearchMs": 5.321106999879703,
+            "endToEndMs": 2856.6766269996297,
+            "recallAt3": 1,
+            "ndcgAt3": 0.9166666666666666
+          },
+          {
+            "round": 3,
+            "phase": "warm",
+            "modelBytes": 94851877,
+            "modelDownloadMs": 0,
+            "modelInitializationMs": 0,
+            "documentVectorizationMs": 155.88499999977648,
+            "documentVectorsPerSecond": 38.4899124355044,
+            "queryVectorizationMs": 157.464999999851,
+            "writeRefreshMs": 2107.2679030001163,
+            "databaseSearchMs": 5.175287499868621,
+            "endToEndMs": 2451.6696279989555,
+            "recallAt3": 1,
+            "ndcgAt3": 0.9166666666666666
+          },
+          {
+            "round": 4,
+            "phase": "warm",
+            "modelBytes": 94851877,
+            "modelDownloadMs": 0,
+            "modelInitializationMs": 0,
+            "documentVectorizationMs": 139.62999999988824,
+            "documentVectorsPerSecond": 42.97070830054288,
+            "queryVectorizationMs": 143.26500000013039,
+            "writeRefreshMs": 2046.9419129998423,
+            "databaseSearchMs": 5.176257666743671,
+            "endToEndMs": 2360.894459000323,
+            "recallAt3": 1,
+            "ndcgAt3": 0.9166666666666666
+          },
+          {
+            "round": 5,
+            "phase": "warm",
+            "modelBytes": 94851877,
+            "modelDownloadMs": 0,
+            "modelInitializationMs": 0,
+            "documentVectorizationMs": 145.69499999983236,
+            "documentVectorsPerSecond": 41.18192113666841,
+            "queryVectorizationMs": 148.8450000002049,
+            "writeRefreshMs": 3258.7805730002,
+            "databaseSearchMs": 6.2910531667682035,
+            "endToEndMs": 3591.0668920008466,
+            "recallAt3": 1,
+            "ndcgAt3": 0.9166666666666666
+          },
+          {
+            "round": 6,
+            "phase": "warm",
+            "modelBytes": 94851877,
+            "modelDownloadMs": 0,
+            "modelInitializationMs": 0,
+            "documentVectorizationMs": 152.97500000009313,
+            "documentVectorsPerSecond": 39.222095113556776,
+            "queryVectorizationMs": 159.68999999994412,
+            "writeRefreshMs": 1884.7609729999676,
+            "databaseSearchMs": 5.108390000105525,
+            "endToEndMs": 2228.076313000638,
+            "recallAt3": 1,
+            "ndcgAt3": 0.9166666666666666
+          }
+        ],
+        "summaries": {
+          "modelDownloadMs": {
+            "median": 0,
+            "p95": 0
+          },
+          "modelInitializationMs": {
+            "median": 0,
+            "p95": 0
+          },
+          "documentVectorizationMs": {
+            "median": 148.6750000002794,
+            "p95": 155.88499999977648
+          },
+          "documentVectorsPerSecond": {
+            "median": 40.356482259887166,
+            "p95": 42.97070830054288
+          },
+          "queryVectorizationMs": {
+            "median": 157.464999999851,
+            "p95": 164.035000000149
+          },
+          "writeRefreshMs": {
+            "median": 2107.2679030001163,
+            "p95": 3258.7805730002
+          },
+          "databaseSearchMs": {
+            "median": 5.176257666743671,
+            "p95": 6.2910531667682035
+          },
+          "endToEndMs": {
+            "median": 2451.6696279989555,
+            "p95": 3591.0668920008466
+          },
+          "recallAt3": {
+            "median": 1,
+            "p95": 1
+          },
+          "ndcgAt3": {
+            "median": 0.9166666666666666,
+            "p95": 0.9166666666666666
+          }
+        },
+        "rounds": [
+          {
+            "round": 1,
+            "phase": "cold",
+            "modelBytes": 94851877,
+            "modelDownloadMs": 110.59499999973923,
+            "modelInitializationMs": 465.3950000004843,
+            "documentVectorizationMs": 262.69499999983236,
+            "documentVectorsPerSecond": 22.840175869368768,
+            "queryVectorizationMs": 162.2050000000745,
+            "writeRefreshMs": 1353.005026999861,
+            "databaseSearchMs": 5.35628500006472,
+            "endToEndMs": 2386.0327370003797,
+            "recallAt3": 1,
+            "ndcgAt3": 0.9166666666666666
+          },
+          {
+            "round": 2,
+            "phase": "warm",
+            "modelBytes": 94851877,
+            "modelDownloadMs": 0,
+            "modelInitializationMs": 0,
+            "documentVectorizationMs": 148.6750000002794,
+            "documentVectorsPerSecond": 40.356482259887166,
+            "queryVectorizationMs": 164.035000000149,
+            "writeRefreshMs": 2512.039984999923,
+            "databaseSearchMs": 5.321106999879703,
+            "endToEndMs": 2856.6766269996297,
+            "recallAt3": 1,
+            "ndcgAt3": 0.9166666666666666
+          },
+          {
+            "round": 3,
+            "phase": "warm",
+            "modelBytes": 94851877,
+            "modelDownloadMs": 0,
+            "modelInitializationMs": 0,
+            "documentVectorizationMs": 155.88499999977648,
+            "documentVectorsPerSecond": 38.4899124355044,
+            "queryVectorizationMs": 157.464999999851,
+            "writeRefreshMs": 2107.2679030001163,
+            "databaseSearchMs": 5.175287499868621,
+            "endToEndMs": 2451.6696279989555,
+            "recallAt3": 1,
+            "ndcgAt3": 0.9166666666666666
+          },
+          {
+            "round": 4,
+            "phase": "warm",
+            "modelBytes": 94851877,
+            "modelDownloadMs": 0,
+            "modelInitializationMs": 0,
+            "documentVectorizationMs": 139.62999999988824,
+            "documentVectorsPerSecond": 42.97070830054288,
+            "queryVectorizationMs": 143.26500000013039,
+            "writeRefreshMs": 2046.9419129998423,
+            "databaseSearchMs": 5.176257666743671,
+            "endToEndMs": 2360.894459000323,
+            "recallAt3": 1,
+            "ndcgAt3": 0.9166666666666666
+          },
+          {
+            "round": 5,
+            "phase": "warm",
+            "modelBytes": 94851877,
+            "modelDownloadMs": 0,
+            "modelInitializationMs": 0,
+            "documentVectorizationMs": 145.69499999983236,
+            "documentVectorsPerSecond": 41.18192113666841,
+            "queryVectorizationMs": 148.8450000002049,
+            "writeRefreshMs": 3258.7805730002,
+            "databaseSearchMs": 6.2910531667682035,
+            "endToEndMs": 3591.0668920008466,
+            "recallAt3": 1,
+            "ndcgAt3": 0.9166666666666666
+          },
+          {
+            "round": 6,
+            "phase": "warm",
+            "modelBytes": 94851877,
+            "modelDownloadMs": 0,
+            "modelInitializationMs": 0,
+            "documentVectorizationMs": 152.97500000009313,
+            "documentVectorsPerSecond": 39.222095113556776,
+            "queryVectorizationMs": 159.68999999994412,
+            "writeRefreshMs": 1884.7609729999676,
+            "databaseSearchMs": 5.108390000105525,
+            "endToEndMs": 2228.076313000638,
+            "recallAt3": 1,
+            "ndcgAt3": 0.9166666666666666
+          }
+        ]
+      },
+      {
+        "profile": "quantized",
+        "runtimeInfo": {
+          "backend": "wasm",
+          "dtype": "q8"
+        },
+        "modelBytes": 24010842,
+        "coldRound": {
+          "round": 1,
+          "phase": "cold",
+          "modelBytes": 24010842,
+          "modelDownloadMs": 36.65499999979511,
+          "modelInitializationMs": 1234.195000000298,
+          "documentVectorizationMs": 363.6899999999441,
+          "documentVectorsPerSecond": 16.49756660892772,
+          "queryVectorizationMs": 102.39500000001863,
+          "writeRefreshMs": 2553.3754480001517,
+          "databaseSearchMs": 24.058481333350453,
+          "endToEndMs": 4434.66133600031,
+          "recallAt3": 1,
+          "ndcgAt3": 0.9166666666666666
+        },
+        "warmRounds": [
+          {
+            "round": 2,
+            "phase": "warm",
+            "modelBytes": 24010842,
+            "modelDownloadMs": 0,
+            "modelInitializationMs": 0,
+            "documentVectorizationMs": 101.2449999996461,
+            "documentVectorsPerSecond": 59.26218578715959,
+            "queryVectorizationMs": 105.875,
+            "writeRefreshMs": 1401.9337959999684,
+            "databaseSearchMs": 5.243186166704011,
+            "endToEndMs": 1640.5129129998386,
+            "recallAt3": 1,
+            "ndcgAt3": 0.9166666666666666
+          },
+          {
+            "round": 3,
+            "phase": "warm",
+            "modelBytes": 24010842,
+            "modelDownloadMs": 0,
+            "modelInitializationMs": 0,
+            "documentVectorizationMs": 98.68999999994412,
+            "documentVectorsPerSecond": 60.79643327594891,
+            "queryVectorizationMs": 93.88499999977648,
+            "writeRefreshMs": 1507.572053000098,
+            "databaseSearchMs": 5.395804999939476,
+            "endToEndMs": 1732.5218829994556,
+            "recallAt3": 1,
+            "ndcgAt3": 0.9166666666666666
+          },
+          {
+            "round": 4,
+            "phase": "warm",
+            "modelBytes": 24010842,
+            "modelDownloadMs": 0,
+            "modelInitializationMs": 0,
+            "documentVectorizationMs": 101.06999999983236,
+            "documentVectorsPerSecond": 59.36479667566985,
+            "queryVectorizationMs": 92.42999999970198,
+            "writeRefreshMs": 1547.1276460001245,
+            "databaseSearchMs": 4.9149524999472005,
+            "endToEndMs": 1770.117360999342,
+            "recallAt3": 1,
+            "ndcgAt3": 0.9166666666666666
+          },
+          {
+            "round": 5,
+            "phase": "warm",
+            "modelBytes": 24010842,
+            "modelDownloadMs": 0,
+            "modelInitializationMs": 0,
+            "documentVectorizationMs": 99.57500000018626,
+            "documentVectorsPerSecond": 60.25608837548357,
+            "queryVectorizationMs": 102.23499999986961,
+            "writeRefreshMs": 2220.841328999959,
+            "databaseSearchMs": 5.58986733337709,
+            "endToEndMs": 2456.1905330002774,
+            "recallAt3": 1,
+            "ndcgAt3": 0.9166666666666666
+          },
+          {
+            "round": 6,
+            "phase": "warm",
+            "modelBytes": 24010842,
+            "modelDownloadMs": 0,
+            "modelInitializationMs": 0,
+            "documentVectorizationMs": 93.46999999973923,
+            "documentVectorsPerSecond": 64.19171926839348,
+            "queryVectorizationMs": 103.16000000014901,
+            "writeRefreshMs": 2164.815816000104,
+            "databaseSearchMs": 5.469985666646001,
+            "endToEndMs": 2394.265729999868,
+            "recallAt3": 1,
+            "ndcgAt3": 0.9166666666666666
+          }
+        ],
+        "summaries": {
+          "modelDownloadMs": {
+            "median": 0,
+            "p95": 0
+          },
+          "modelInitializationMs": {
+            "median": 0,
+            "p95": 0
+          },
+          "documentVectorizationMs": {
+            "median": 99.57500000018626,
+            "p95": 101.2449999996461
+          },
+          "documentVectorsPerSecond": {
+            "median": 60.25608837548357,
+            "p95": 64.19171926839348
+          },
+          "queryVectorizationMs": {
+            "median": 102.23499999986961,
+            "p95": 105.875
+          },
+          "writeRefreshMs": {
+            "median": 1547.1276460001245,
+            "p95": 2220.841328999959
+          },
+          "databaseSearchMs": {
+            "median": 5.395804999939476,
+            "p95": 5.58986733337709
+          },
+          "endToEndMs": {
+            "median": 1770.117360999342,
+            "p95": 2456.1905330002774
+          },
+          "recallAt3": {
+            "median": 1,
+            "p95": 1
+          },
+          "ndcgAt3": {
+            "median": 0.9166666666666666,
+            "p95": 0.9166666666666666
+          }
+        },
+        "rounds": [
+          {
+            "round": 1,
+            "phase": "cold",
+            "modelBytes": 24010842,
+            "modelDownloadMs": 36.65499999979511,
+            "modelInitializationMs": 1234.195000000298,
+            "documentVectorizationMs": 363.6899999999441,
+            "documentVectorsPerSecond": 16.49756660892772,
+            "queryVectorizationMs": 102.39500000001863,
+            "writeRefreshMs": 2553.3754480001517,
+            "databaseSearchMs": 24.058481333350453,
+            "endToEndMs": 4434.66133600031,
+            "recallAt3": 1,
+            "ndcgAt3": 0.9166666666666666
+          },
+          {
+            "round": 2,
+            "phase": "warm",
+            "modelBytes": 24010842,
+            "modelDownloadMs": 0,
+            "modelInitializationMs": 0,
+            "documentVectorizationMs": 101.2449999996461,
+            "documentVectorsPerSecond": 59.26218578715959,
+            "queryVectorizationMs": 105.875,
+            "writeRefreshMs": 1401.9337959999684,
+            "databaseSearchMs": 5.243186166704011,
+            "endToEndMs": 1640.5129129998386,
+            "recallAt3": 1,
+            "ndcgAt3": 0.9166666666666666
+          },
+          {
+            "round": 3,
+            "phase": "warm",
+            "modelBytes": 24010842,
+            "modelDownloadMs": 0,
+            "modelInitializationMs": 0,
+            "documentVectorizationMs": 98.68999999994412,
+            "documentVectorsPerSecond": 60.79643327594891,
+            "queryVectorizationMs": 93.88499999977648,
+            "writeRefreshMs": 1507.572053000098,
+            "databaseSearchMs": 5.395804999939476,
+            "endToEndMs": 1732.5218829994556,
+            "recallAt3": 1,
+            "ndcgAt3": 0.9166666666666666
+          },
+          {
+            "round": 4,
+            "phase": "warm",
+            "modelBytes": 24010842,
+            "modelDownloadMs": 0,
+            "modelInitializationMs": 0,
+            "documentVectorizationMs": 101.06999999983236,
+            "documentVectorsPerSecond": 59.36479667566985,
+            "queryVectorizationMs": 92.42999999970198,
+            "writeRefreshMs": 1547.1276460001245,
+            "databaseSearchMs": 4.9149524999472005,
+            "endToEndMs": 1770.117360999342,
+            "recallAt3": 1,
+            "ndcgAt3": 0.9166666666666666
+          },
+          {
+            "round": 5,
+            "phase": "warm",
+            "modelBytes": 24010842,
+            "modelDownloadMs": 0,
+            "modelInitializationMs": 0,
+            "documentVectorizationMs": 99.57500000018626,
+            "documentVectorsPerSecond": 60.25608837548357,
+            "queryVectorizationMs": 102.23499999986961,
+            "writeRefreshMs": 2220.841328999959,
+            "databaseSearchMs": 5.58986733337709,
+            "endToEndMs": 2456.1905330002774,
+            "recallAt3": 1,
+            "ndcgAt3": 0.9166666666666666
+          },
+          {
+            "round": 6,
+            "phase": "warm",
+            "modelBytes": 24010842,
+            "modelDownloadMs": 0,
+            "modelInitializationMs": 0,
+            "documentVectorizationMs": 93.46999999973923,
+            "documentVectorsPerSecond": 64.19171926839348,
+            "queryVectorizationMs": 103.16000000014901,
+            "writeRefreshMs": 2164.815816000104,
+            "databaseSearchMs": 5.469985666646001,
+            "endToEndMs": 2394.265729999868,
+            "recallAt3": 1,
+            "ndcgAt3": 0.9166666666666666
+          }
+        ]
+      }
+    ],
+    "compressionRatio": 3.9503769588754944,
+    "qualitySet": [
+      {
+        "id": "q-rrf",
+        "relevantIds": [
+          "rrf-hybrid"
+        ]
+      },
+      {
+        "id": "q-fallback",
+        "relevantIds": [
+          "webgpu-fallback"
+        ]
+      },
+      {
+        "id": "q-private",
+        "relevantIds": [
+          "private-inference"
+        ]
+      },
+      {
+        "id": "q-int8",
+        "relevantIds": [
+          "int8-quantization"
+        ]
+      },
+      {
+        "id": "q-batch",
+        "relevantIds": [
+          "batch-throughput"
+        ]
+      },
+      {
+        "id": "q-refresh",
+        "relevantIds": [
+          "index-refresh"
+        ]
+      }
+    ],
+    "measurementConditions": {
+      "evaluationDocuments": 6,
+      "queries": 6,
+      "topK": 3,
+      "coldRounds": 1,
+      "warmRounds": 5,
+      "aggregation": "median and nearest-rank P95 across warm rounds; all raw cold and warm rounds are included",
+      "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.144.0 Chrome/150.0.7871.250 Electron/43.8.3 Safari/537.36",
+      "webgpuAvailable": true,
+      "simulatedWebGPUUnavailable": false,
+      "hardwareConcurrency": 32,
+      "backendPreference": "wasm",
+      "note": "Model bytes sum unique ONNX weight file sizes observed by Transformers.js. Download time is measured only for ONNX weight fetches; cached weights report zero network download. The first round is the first run in this benchmark, not necessarily a cold browser-cache run."
+    }
+  }
+}

@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f5f7fb" />
+    <meta name="description" content="浏览器端本地 embedding 与 seekdb 向量-全文混合检索个人知识库" />
+    <title>本地知识库 · StepFun × seekdb</title>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="/" aria-label="本地知识库首页">
+          <span class="brand-mark">S</span>
+          <span>StepFun <b>Knowledge</b></span>
+        </a>
+        <div class="topbar-right">
+          <span id="runtime-pill" class="pill pill-muted"><i></i> 等待浏览器推理</span>
+          <span id="db-pill" class="pill pill-muted"><i></i> 连接 seekdb</span>
+        </div>
+      </header>
+
+      <main>
+        <section class="hero">
+          <div class="hero-copy">
+            <p class="eyebrow">LOCAL AI · HYBRID RETRIEVAL</p>
+            <h1>让知识留在<br /><span>你的设备里。</span></h1>
+            <p class="hero-description">
+              在浏览器本地完成文档向量化，向量与全文检索统一交给 seekdb。无需云端推理 API。
+            </p>
+            <div class="privacy-note"><span class="lock-icon" aria-hidden="true">⌑</span> 文件内容不会上传到云端</div>
+          </div>
+          <div class="hero-art" aria-hidden="true">
+            <div class="orb orb-one"></div>
+            <div class="orb orb-two"></div>
+            <div class="art-center"><span>AI</span><small>ON DEVICE</small></div>
+            <div class="art-node node-top">WEBGPU</div>
+            <div class="art-node node-left">INT8</div>
+            <div class="art-node node-right">seekdb</div>
+            <div class="art-node node-bottom">RRF</div>
+          </div>
+        </section>
+
+        <section class="status-grid" aria-label="应用状态">
+          <article class="status-card">
+            <span class="status-icon icon-model">◈</span>
+            <div><p>Embedding 模型</p><strong id="model-status">尚未加载</strong></div>
+          </article>
+          <article class="status-card">
+            <span class="status-icon icon-device">⌘</span>
+            <div><p>推理后端</p><strong id="backend-status">WebGPU 优先 · 自动降级 WASM</strong></div>
+          </article>
+          <article class="status-card">
+            <span class="status-icon icon-db">▦</span>
+            <div><p>知识库</p><strong><span id="document-count">—</span> 个文本块</strong></div>
+          </article>
+        </section>
+
+        <section class="workspace-grid">
+          <div class="column-main">
+            <section class="panel import-panel">
+              <div class="panel-heading">
+                <div>
+                  <p class="eyebrow">01 / BUILD YOUR LIBRARY</p>
+                  <h2>导入语料</h2>
+                </div>
+                <span class="step-badge">本地向量化</span>
+              </div>
+              <div id="drop-zone" class="drop-zone" tabindex="0" role="button" aria-label="选择或拖入 TXT、Markdown 或 CSV 文档">
+                <input id="file-input" type="file" accept=".txt,.md,.markdown,.csv,text/plain,text/markdown,text/csv" multiple hidden />
+                <div class="upload-mark" aria-hidden="true">↑</div>
+                <strong>拖放文档到此处，或 <span>浏览文件</span></strong>
+                <p>支持 TXT / Markdown / CSV · 每个文件最大 5 MB</p>
+              </div>
+              <div id="selected-files" class="selected-files" aria-live="polite"></div>
+              <div class="import-actions">
+                <div class="model-choice">
+                  <label for="backend-choice">推理模式</label>
+                  <select id="backend-choice" aria-label="推理后端选择">
+                    <option value="auto">自动：优先 WebGPU</option>
+                    <option value="wasm">WASM：对照测试</option>
+                  </select>
+                </div>
+                <button id="import-button" class="button button-primary" disabled>
+                  <span>生成向量并写入 seekdb</span><span aria-hidden="true">→</span>
+                </button>
+              </div>
+              <div id="import-progress" class="progress-area" aria-live="polite"></div>
+            </section>
+
+            <section class="panel search-panel">
+              <div class="panel-heading">
+                <div>
+                  <p class="eyebrow">02 / ASK YOUR KNOWLEDGE</p>
+                  <h2>混合检索</h2>
+                </div>
+                <label class="topk-control">结果数
+                  <select id="top-k" aria-label="检索结果数">
+                    <option value="5">5</option><option value="10">10</option><option value="20">20</option>
+                  </select>
+                </label>
+              </div>
+              <form id="search-form" class="search-form">
+                <label for="query-input" class="visually-hidden">输入问题</label>
+                <span class="search-icon" aria-hidden="true">⌕</span>
+                <input id="query-input" type="search" maxlength="450" placeholder="试试：如何在 WebGPU 不可用时运行模型？" autocomplete="off" />
+                <button id="search-button" type="submit" class="button button-dark">搜索 <span aria-hidden="true">↗</span></button>
+              </form>
+              <p class="search-hint">查询向量在当前浏览器计算；seekdb 在数据库内执行向量检索、全文检索与 RRF 融合。</p>
+              <div id="search-status" class="inline-status" aria-live="polite"></div>
+              <div id="search-results" class="search-results"></div>
+            </section>
+          </div>
+
+          <aside class="column-side">
+            <section class="panel sources-panel">
+              <div class="panel-heading compact-heading">
+                <div><p class="eyebrow">SAVED IN SEEKDB</p><h2>语料集合</h2></div>
+                <span id="source-count" class="count-badge">0</span>
+              </div>
+              <div id="source-list" class="source-list"><p class="empty-state">导入文档后会显示在这里。</p></div>
+            </section>
+
+            <section class="panel model-panel">
+              <p class="eyebrow">ON-DEVICE MODEL</p>
+              <h2>轻量且私有</h2>
+              <div class="model-detail">
+                <span class="detail-symbol">⌁</span>
+                <div><strong>bge-small-zh-v1.5</strong><small>512 维 · 中文语义检索</small></div>
+              </div>
+              <div class="model-detail">
+                <span class="detail-symbol">◌</span>
+                <div><strong>FP16 / INT8</strong><small>WebGPU 使用 FP16，WASM 使用 Q8</small></div>
+              </div>
+              <div class="model-detail">
+                <span class="detail-symbol">⌘</span>
+                <div><strong>批量推理</strong><small>最多 16 段 / 批，浏览器缓存模型</small></div>
+              </div>
+              <div id="model-progress" class="model-progress" aria-live="polite"></div>
+            </section>
+
+            <section class="panel benchmark-panel">
+              <div class="benchmark-title">
+                <span class="chart-icon" aria-hidden="true">↗</span>
+                <div><p class="eyebrow">MEASURE, DON'T GUESS</p><h2>性能与质量</h2></div>
+              </div>
+              <p>固定 6 篇文档与 6 个查询。每种配置分别记录首次运行与 5 次预热结果，并报告中位数、P95、Recall@3 和 nDCG@3。</p>
+              <button id="benchmark-button" class="button button-outline">运行端侧评测 <span aria-hidden="true">→</span></button>
+              <div id="benchmark-results" class="benchmark-results" aria-live="polite"></div>
+            </section>
+          </aside>
+        </section>
+
+        <section class="metrics-panel panel">
+          <div class="metrics-heading">
+            <div><p class="eyebrow">LIVE TELEMETRY</p><h2>最近一次操作</h2></div>
+            <button id="download-report" class="button button-quiet" disabled>下载测量报告</button>
+          </div>
+          <div id="operation-metrics" class="metric-grid">
+            <div class="metric-card"><span>模型下载</span><strong>—</strong><small>仅模型权重网络传输</small></div>
+            <div class="metric-card"><span>模型初始化</span><strong>—</strong><small>与权重下载分开计时</small></div>
+            <div class="metric-card"><span>向量化</span><strong>—</strong><small>吞吐量与总耗时</small></div>
+            <div class="metric-card"><span>seekdb 写入</span><strong>—</strong><small>写入 + 索引刷新</small></div>
+            <div class="metric-card"><span>端到端查询</span><strong>—</strong><small>query embedding + hybrid search</small></div>
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        <span>StepFun · 本地知识库</span>
+        <span>模型来源：<a href="https://huggingface.co/Xenova/bge-small-zh-v1.5" target="_blank" rel="noreferrer">Xenova/bge-small-zh-v1.5</a> · 推理：Transformers.js · 存储与混合检索：seekdb</span>
+      </footer>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
