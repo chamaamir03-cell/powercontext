@@ -1,0 +1,32 @@
+{
+  "name": "stepfun-local-knowledge-base",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/launch.mjs dev",
+    "build": "vite build && tsc --noEmit",
+    "start": "node scripts/launch.mjs start",
+    "test": "vitest run",
+    "test:acceptance-api": "node scripts/acceptance-api.mjs"
+  },
+  "dependencies": {
+    "@huggingface/transformers": "4.3.2",
+    "express": "5.1.0",
+    "seekdb": "1.4.0"
+  },
+  "devDependencies": {
+    "@types/express": "5.0.3",
+    "@types/node": "22.18.6",
+    "tsx": "4.20.5",
+    "typescript": "5.9.2",
+    "vite": "6.4.5",
+    "vitest": "5.0.5"
+  },
+  "overrides": {
+    "adm-zip": "0.6.1"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
