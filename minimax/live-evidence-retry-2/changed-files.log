@@ -1,0 +1,9 @@
+{"command": ["git", "status", "--porcelain", "--untracked-files=all"], "exit_code": 0}
+--- stdout ---
+A  decisions/filtering.md
+AM inventory.py
+A  specs/inventory.md
+A  specs/old-inventory.md
+A  test_inventory.py
+
+--- stderr ---

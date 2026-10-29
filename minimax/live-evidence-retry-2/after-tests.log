@@ -1,0 +1,14 @@
+{"command": ["/home/books/work/powercontext-pdf/.venv/bin/python", "-m", "unittest", "-v", "test_inventory"], "exit_code": 0}
+--- stdout ---
+
+--- stderr ---
+test_combined_filters (test_inventory.InventoryTests.test_combined_filters) ... ok
+test_default_preserves_order (test_inventory.InventoryTests.test_default_preserves_order) ... ok
+test_no_matches (test_inventory.InventoryTests.test_no_matches) ... ok
+test_supplier_filter (test_inventory.InventoryTests.test_supplier_filter) ... ok
+test_warehouse_filter (test_inventory.InventoryTests.test_warehouse_filter) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.000s
+
+OK

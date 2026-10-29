@@ -1,0 +1,5 @@
+{"command": ["/home/books/work/powercontext-pdf/.venv/bin/python", "-m", "minimax.engineering_context", "prepare", "--root", "/tmp/minimax-acceptance-th99wkqt/project", "--project", "minimax-live-90c5ed751b1d4e36a6639695220256b4", "--task-id", "supplier-filter", "--task", "Add inventory supplier filtering, combine it with warehouse filtering, and preserve the original order. Modify inventory.py only; do not modify tests or specifications."], "exit_code": 2}
+--- stdout ---
+
+--- stderr ---
+engineering-context: PowerContext /v1/scopes request failed (ReadTimeout).

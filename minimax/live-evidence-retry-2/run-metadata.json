@@ -1,0 +1,12 @@
+{
+  "project": "minimax-live-94c49fdbe64e4a03a75bf899479f00d9",
+  "task": "Add inventory supplier filtering, combine it with warehouse filtering, and preserve the original order. Modify inventory.py only; do not modify tests or specifications.",
+  "test_command": "python -m unittest -v test_inventory",
+  "before_code_sha256": "6feb580b252f62d556f903ef551c3c4b03cd73c70e7eb57bb7147c97d67d7bf1",
+  "after_code_sha256": "bd521193dafba4afbbab34799efb4c3c81ce443ce2c9d5f0c93dffda3e946d2e",
+  "test_sha256": "e2563485cdb36064dedf90067e191730608f460622ac22f6a5cdf47bf2e8d9cf",
+  "database": "seekdb 1.4.0 via pylibseekdb 1.4.0.post2 and PyMySQL",
+  "memory": "PowerContext HTTP API",
+  "model": "MiniMax-M3.1-Flash",
+  "request_id": "073266aec2a3503a0be77ccd725f3c41"
+}
