@@ -2,7 +2,7 @@
 
 This module provides an executable MiniMax coding workflow. It indexes real project files in seekdb or OceanBase, returns matching current requirements/design decisions/code/tests, asks the MiniMax API to produce a patch, applies the patch to the selected Git checkout, runs the test command you provide, and saves task progress and verification results through PowerContext.
 
-The competition acceptance matrix and run evidence are in [ACCEPTANCE.md](./ACCEPTANCE.md).
+The one-page module overview is in [TECHNICAL-OVERVIEW.md](./TECHNICAL-OVERVIEW.md); the competition acceptance matrix and run evidence are in [ACCEPTANCE.md](./ACCEPTANCE.md).
 
 ## What it does
 
