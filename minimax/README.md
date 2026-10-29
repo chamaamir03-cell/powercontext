@@ -44,6 +44,24 @@ export POWERCONTEXT_TOKEN='your-local-powercontext-token'
 export MINIMAX_API_KEY='your-MiniMax-API-key'
 ```
 
+### Credentials the evaluator must provide
+
+The **live acceptance demo requires an active MiniMax API credential supplied by the evaluator**. Use the M Plan Subscription Key or a pay-as-you-go API key from the account that will run the demo. This repository does not include, request through source control, or provide a shared key. The demo sends one coding request and consumes that account's quota. For a China-platform key use `https://api.minimax.cn/v1`; for an international-platform key use `https://api.minimax.io/v1`. Use the endpoint for the account where the key was created.
+
+Enter the key without echoing it, in the same terminal that will run the acceptance command:
+
+```bash
+read -r -s -p "MiniMax API key: " MINIMAX_API_KEY
+echo
+export MINIMAX_API_KEY
+export MINIMAX_MODEL='MiniMax-M3.1-Flash'
+# Choose exactly one endpoint for the account that issued the key:
+export MINIMAX_BASE_URL='https://api.minimax.cn/v1'  # China platform
+# export MINIMAX_BASE_URL='https://api.minimax.io/v1' # International platform
+```
+
+Also requires Python dependencies installed as below and a running, reachable PowerContext service. A local PowerContext 1.4.1 service and its random authentication token can be created with the instructions in the next section; alternatively configure `POWERCONTEXT_URL` and `POWERCONTEXT_TOKEN` for an existing service. The included embedded seekdb runtime is started and initialized by the demo and does not require an external database account. If network policy blocks MiniMax, PowerContext, or package downloads, the evaluator must provide an allowed network path; the script reports connection failures instead of claiming acceptance passed.
+
 PowerContext integration was tested against version 1.4.1 using `/v1/scopes`, `/v1/atomic-memory/list`, and `/v1/memory/remember`. The scope is idempotent per project, and records are filtered by schema and task ID when reloaded. Service, authentication, and save-confirmation errors stop the operation rather than returning success-shaped defaults.
 
 For a clean local PowerContext 1.4.1 setup without Docker, use a separate virtual environment and run the following in the same shell where you will run the demo:
@@ -133,12 +151,9 @@ For manual editing, `validate` accepts a quoted command and persists its real ex
 
 The bundled [demo](./demo/) deliberately starts with three functional assertion failures and two passing regression tests. It has a current spec, an accepted decision, a superseded spec, code, and tests. The script copies it to a temporary directory, indexes it using a fresh official embedded seekdb, sends the task and retrieved demo excerpts to MiniMax, and uses the running PowerContext instance. It consumes API quota; no production code is sent.
 
-In the terminal containing a valid MiniMax key, from the repository root:
+After installing the dependencies, starting/configuring PowerContext, and exporting credentials as described above, run from the repository root in that same terminal:
 
 ```bash
-# For a China-region M Plan subscription key:
-export MINIMAX_BASE_URL='https://api.minimax.cn/v1'
-export MINIMAX_MODEL='MiniMax-M3.1-Flash'
 python3 -m minimax.run_live_demo --output minimax/live-evidence
 ```
 
