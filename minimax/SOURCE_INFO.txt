@@ -1,0 +1,17 @@
+MiniMax 600077 source package
+=============================
+
+Source repository: fcl45277-855/powercontext-xiaocaoshen
+Source branch:     fix/minimax-600077
+Source commit:     2d0cdc3129717a2ed36ef20e78b57a41f03585ca
+Base branch:       2026-competition-ecosystem
+Base commit:       89a87db39733cf4323a4ca0ee921e43222579bcf
+
+Included:
+- minimax/                  full module source and evidence
+- minimax-600077.patch      diff against the base commit
+- README_交付说明.md        implementation summary and runbook
+- SHA256SUMS.txt            file checksums (excluding this file)
+
+Default validation mode: replay (no MiniMax credential required)
+Live validation:         MiniMax Code CLI login required

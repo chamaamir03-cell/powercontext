@@ -1,0 +1,9 @@
+{
+  "ok": true,
+  "step": "spec_update",
+  "source": "minimax/validation/spec_update.md",
+  "doc_id": "spec:specs/inventory_search.md",
+  "path": "minimax/specs/inventory_search.md",
+  "version": "0351ca8fdd86",
+  "marker": "v2"
+}

@@ -1,0 +1,66 @@
+{
+  "ok": true,
+  "step": "init",
+  "documents": [
+    {
+      "doc_id": "spec:specs/inventory_search.md",
+      "kind": "spec",
+      "path": "minimax/specs/inventory_search.md",
+      "version": "d3902583a556"
+    },
+    {
+      "doc_id": "code:demo_project/inventory/__init__.py",
+      "kind": "code",
+      "path": "minimax/demo_project/inventory/__init__.py",
+      "version": "46cafe5bd99a"
+    },
+    {
+      "doc_id": "code:demo_project/inventory/models.py",
+      "kind": "code",
+      "path": "minimax/demo_project/inventory/models.py",
+      "version": "8d8c5a28081f"
+    },
+    {
+      "doc_id": "code:demo_project/inventory/repository.py",
+      "kind": "code",
+      "path": "minimax/demo_project/inventory/repository.py",
+      "version": "a6cbbd23a2f7"
+    },
+    {
+      "doc_id": "code:demo_project/inventory/search.py",
+      "kind": "code",
+      "path": "minimax/demo_project/inventory/search.py",
+      "version": "6ce512cba4f0"
+    },
+    {
+      "doc_id": "test:demo_project/tests/conftest.py",
+      "kind": "test",
+      "path": "minimax/demo_project/tests/conftest.py",
+      "version": "8659c4f6af34"
+    },
+    {
+      "doc_id": "test:demo_project/tests/test_price_filter.py",
+      "kind": "test",
+      "path": "minimax/demo_project/tests/test_price_filter.py",
+      "version": "9ff07ab11669"
+    },
+    {
+      "doc_id": "test:demo_project/tests/test_regression.py",
+      "kind": "test",
+      "path": "minimax/demo_project/tests/test_regression.py",
+      "version": "8caf57cc6d51"
+    }
+  ],
+  "document_count": 8,
+  "seekdb": "/home/lab929/gtx/powercontext/minimax/.state/seekdb",
+  "powercontext": {
+    "scope_id": "scp_662x6sedtswf15jh5hnpcef1y2",
+    "entry_id": "mem_ent_8e70b4a81f2847278e8655bb8b8b5d7a",
+    "memory_ref": {
+      "family": "memory",
+      "artifact_id": "memory",
+      "revision": 1
+    },
+    "saved_at": "2026-10-27T06:49:33.593631+00:00"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "ok": true,
+  "step": "before_after",
+  "workspace": "/home/lab929/gtx/powercontext/minimax/.work/before_after",
+  "applied": {
+    "mode": "replay",
+    "patch": "/home/lab929/gtx/powercontext/minimax/patches/price_filter.patch",
+    "returncode": 0
+  },
+  "before": {
+    "target_exit": 1,
+    "regression_exit": 0,
+    "target_failed_for_missing_behavior": true,
+    "target_tail": "rd argument 'min_price'\n\ntests/test_price_filter.py:62: TypeError\n=========================== short test summary info ============================\nFAILED tests/test_price_filter.py::test_min_price_is_inclusive - TypeError: s...\nFAILED tests/test_price_filter.py::test_max_price_is_inclusive - TypeError: s...\nFAILED tests/test_price_filter.py::test_price_range_combines_with_query_and_category\nFAILED tests/test_price_filter.py::test_price_range_respects_sort_and_pagination\nFAILED tests/test_price_filter.py::test_price_bounds_allow_zero_and_empty_results\nFAILED tests/test_price_filter.py::test_invalid_price_bounds_raise_value_error[6000-5000]\nFAILED tests/test_price_filter.py::test_invalid_price_bounds_raise_value_error[-1-5000]\nFAILED tests/test_price_filter.py::test_invalid_price_bounds_raise_value_error[0--1]\nFAILED tests/test_price_filter.py::test_invalid_price_bounds_raise_value_error[True-5000]\nFAILED tests/test_price_filter.py::test_invalid_price_bounds_raise_value_error[5000-False]\nFAILED tests/test_price_filter.py::test_invalid_price_bounds_raise_value_error[10.5-5000]\nFAILED tests/test_price_filter.py::test_invalid_price_bounds_raise_value_error[5000-9000]\n12 failed in 0.10s\n",
+    "regression_tail": "............                                                             [100%]\n12 passed in 0.04s\n"
+  },
+  "after": {
+    "target_exit": 0,
+    "regression_exit": 0,
+    "target_tail": "............                                                             [100%]\n12 passed in 0.04s\n",
+    "regression_tail": "............                                                             [100%]\n12 passed in 0.03s\n"
+  }
+}

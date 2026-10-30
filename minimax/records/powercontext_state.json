@@ -1,0 +1,37 @@
+{
+  "ok": true,
+  "step": "status",
+  "state": {
+    "completed": [
+      "materials_imported",
+      "context_built",
+      "patch_applied",
+      "tests_run"
+    ],
+    "pending": [],
+    "required_sources": [
+      "minimax/specs/inventory_search.md",
+      "minimax/demo_project/inventory/search.py",
+      "minimax/demo_project/tests/test_price_filter.py",
+      "minimax/demo_project/tests/test_regression.py"
+    ],
+    "status": "validated",
+    "task_id": "inventory-price-filter",
+    "updated_at": "2026-10-27T06:50:05.915356+00:00",
+    "validation": {
+      "commands": {
+        "regression": "python -m pytest tests/test_regression.py -q",
+        "target": "python -m pytest tests/test_price_filter.py -q"
+      },
+      "regression": "passed",
+      "target": "passed"
+    }
+  },
+  "scope_id": "scp_662x6sedtswf15jh5hnpcef1y2",
+  "hit_count": 4,
+  "entry_count": 4,
+  "latest_entry_id": "mem_ent_32a0783f071a4967b2a0d8b22020984e",
+  "prepared_status": "ready",
+  "prepared_bytes": 3643,
+  "prepared_contains_state": true
+}

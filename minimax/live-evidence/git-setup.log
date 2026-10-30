@@ -1,4 +1,0 @@
-{"command": ["git", "add", "--", "inventory.py", "test_inventory.py", "specs", "decisions"], "exit_code": 0}
---- stdout ---
-
---- stderr ---

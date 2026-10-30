@@ -1,0 +1,41 @@
+{
+  "ok": true,
+  "step": "test",
+  "workspace": "/home/lab929/gtx/powercontext/minimax/.work/demo",
+  "target": {
+    "exit_code": 0,
+    "status": "passed",
+    "tail": "............                                                             [100%]\n12 passed in 0.07s\n"
+  },
+  "regression": {
+    "exit_code": 0,
+    "status": "passed",
+    "tail": "............                                                             [100%]\n12 passed in 0.05s\n"
+  },
+  "task_state": {
+    "completed": [
+      "materials_imported",
+      "context_built",
+      "patch_applied",
+      "tests_run"
+    ],
+    "pending": [],
+    "required_sources": [
+      "minimax/specs/inventory_search.md",
+      "minimax/demo_project/inventory/search.py",
+      "minimax/demo_project/tests/test_price_filter.py",
+      "minimax/demo_project/tests/test_regression.py"
+    ],
+    "status": "validated",
+    "task_id": "inventory-price-filter",
+    "updated_at": "2026-10-27T06:50:05.915002+00:00",
+    "validation": {
+      "regression": "passed",
+      "target": "passed",
+      "commands": {
+        "target": "python -m pytest tests/test_price_filter.py -q",
+        "regression": "python -m pytest tests/test_regression.py -q"
+      }
+    }
+  }
+}

@@ -1,0 +1,228 @@
+command: /home/lab929/gtx/powercontext/competition/.venv/bin/python -m pytest tests/test_price_filter.py -q
+cwd: /home/lab929/gtx/powercontext/minimax/.work/before_after
+code_version: sha256:302ed883edc0
+exit_code: 1
+python: 3.12.12
+started_at: 2026-10-27T06:50:38.844777+00:00
+
+FFFFFFFFFFFF                                                             [100%]
+=================================== FAILURES ===================================
+_________________________ test_min_price_is_inclusive __________________________
+
+    def test_min_price_is_inclusive():
+>       result = search_products(all_products(), min_price=5000)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: search_products() got an unexpected keyword argument 'min_price'
+
+tests/test_price_filter.py:11: TypeError
+_________________________ test_max_price_is_inclusive __________________________
+
+    def test_max_price_is_inclusive():
+>       result = search_products(all_products(), max_price=3499)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: search_products() got an unexpected keyword argument 'max_price'
+
+tests/test_price_filter.py:16: TypeError
+______________ test_price_range_combines_with_query_and_category _______________
+
+    def test_price_range_combines_with_query_and_category():
+>       result = search_products(
+            all_products(),
+            query="hub",
+            category="accessory",
+            min_price=3000,
+            max_price=6000,
+        )
+E       TypeError: search_products() got an unexpected keyword argument 'min_price'
+
+tests/test_price_filter.py:22: TypeError
+________________ test_price_range_respects_sort_and_pagination _________________
+
+    def test_price_range_respects_sort_and_pagination():
+>       result = search_products(
+            all_products(),
+            min_price=2000,
+            max_price=9000,
+            sort="price_asc",
+            page=2,
+            page_size=2,
+        )
+E       TypeError: search_products() got an unexpected keyword argument 'min_price'
+
+tests/test_price_filter.py:33: TypeError
+________________ test_price_bounds_allow_zero_and_empty_results ________________
+
+    def test_price_bounds_allow_zero_and_empty_results():
+>       assert search_products(all_products(), min_price=0, max_price=0) == []
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: search_products() got an unexpected keyword argument 'min_price'
+
+tests/test_price_filter.py:45: TypeError
+____________ test_invalid_price_bounds_raise_value_error[6000-5000] ____________
+
+min_price = 6000, max_price = 5000
+
+    @pytest.mark.parametrize(
+        ("min_price", "max_price"),
+        [
+            (6000, 5000),
+            (-1, 5000),
+            (0, -1),
+            (True, 5000),
+            (5000, False),
+            (10.5, 5000),
+            ("5000", 9000),
+        ],
+    )
+    def test_invalid_price_bounds_raise_value_error(min_price, max_price):
+        with pytest.raises(ValueError):
+>           search_products(all_products(), min_price=min_price, max_price=max_price)
+E           TypeError: search_products() got an unexpected keyword argument 'min_price'
+
+tests/test_price_filter.py:62: TypeError
+_____________ test_invalid_price_bounds_raise_value_error[-1-5000] _____________
+
+min_price = -1, max_price = 5000
+
+    @pytest.mark.parametrize(
+        ("min_price", "max_price"),
+        [
+            (6000, 5000),
+            (-1, 5000),
+            (0, -1),
+            (True, 5000),
+            (5000, False),
+            (10.5, 5000),
+            ("5000", 9000),
+        ],
+    )
+    def test_invalid_price_bounds_raise_value_error(min_price, max_price):
+        with pytest.raises(ValueError):
+>           search_products(all_products(), min_price=min_price, max_price=max_price)
+E           TypeError: search_products() got an unexpected keyword argument 'min_price'
+
+tests/test_price_filter.py:62: TypeError
+______________ test_invalid_price_bounds_raise_value_error[0--1] _______________
+
+min_price = 0, max_price = -1
+
+    @pytest.mark.parametrize(
+        ("min_price", "max_price"),
+        [
+            (6000, 5000),
+            (-1, 5000),
+            (0, -1),
+            (True, 5000),
+            (5000, False),
+            (10.5, 5000),
+            ("5000", 9000),
+        ],
+    )
+    def test_invalid_price_bounds_raise_value_error(min_price, max_price):
+        with pytest.raises(ValueError):
+>           search_products(all_products(), min_price=min_price, max_price=max_price)
+E           TypeError: search_products() got an unexpected keyword argument 'min_price'
+
+tests/test_price_filter.py:62: TypeError
+____________ test_invalid_price_bounds_raise_value_error[True-5000] ____________
+
+min_price = True, max_price = 5000
+
+    @pytest.mark.parametrize(
+        ("min_price", "max_price"),
+        [
+            (6000, 5000),
+            (-1, 5000),
+            (0, -1),
+            (True, 5000),
+            (5000, False),
+            (10.5, 5000),
+            ("5000", 9000),
+        ],
+    )
+    def test_invalid_price_bounds_raise_value_error(min_price, max_price):
+        with pytest.raises(ValueError):
+>           search_products(all_products(), min_price=min_price, max_price=max_price)
+E           TypeError: search_products() got an unexpected keyword argument 'min_price'
+
+tests/test_price_filter.py:62: TypeError
+___________ test_invalid_price_bounds_raise_value_error[5000-False] ____________
+
+min_price = 5000, max_price = False
+
+    @pytest.mark.parametrize(
+        ("min_price", "max_price"),
+        [
+            (6000, 5000),
+            (-1, 5000),
+            (0, -1),
+            (True, 5000),
+            (5000, False),
+            (10.5, 5000),
+            ("5000", 9000),
+        ],
+    )
+    def test_invalid_price_bounds_raise_value_error(min_price, max_price):
+        with pytest.raises(ValueError):
+>           search_products(all_products(), min_price=min_price, max_price=max_price)
+E           TypeError: search_products() got an unexpected keyword argument 'min_price'
+
+tests/test_price_filter.py:62: TypeError
+____________ test_invalid_price_bounds_raise_value_error[10.5-5000] ____________
+
+min_price = 10.5, max_price = 5000
+
+    @pytest.mark.parametrize(
+        ("min_price", "max_price"),
+        [
+            (6000, 5000),
+            (-1, 5000),
+            (0, -1),
+            (True, 5000),
+            (5000, False),
+            (10.5, 5000),
+            ("5000", 9000),
+        ],
+    )
+    def test_invalid_price_bounds_raise_value_error(min_price, max_price):
+        with pytest.raises(ValueError):
+>           search_products(all_products(), min_price=min_price, max_price=max_price)
+E           TypeError: search_products() got an unexpected keyword argument 'min_price'
+
+tests/test_price_filter.py:62: TypeError
+____________ test_invalid_price_bounds_raise_value_error[5000-9000] ____________
+
+min_price = '5000', max_price = 9000
+
+    @pytest.mark.parametrize(
+        ("min_price", "max_price"),
+        [
+            (6000, 5000),
+            (-1, 5000),
+            (0, -1),
+            (True, 5000),
+            (5000, False),
+            (10.5, 5000),
+            ("5000", 9000),
+        ],
+    )
+    def test_invalid_price_bounds_raise_value_error(min_price, max_price):
+        with pytest.raises(ValueError):
+>           search_products(all_products(), min_price=min_price, max_price=max_price)
+E           TypeError: search_products() got an unexpected keyword argument 'min_price'
+
+tests/test_price_filter.py:62: TypeError
+=========================== short test summary info ============================
+FAILED tests/test_price_filter.py::test_min_price_is_inclusive - TypeError: s...
+FAILED tests/test_price_filter.py::test_max_price_is_inclusive - TypeError: s...
+FAILED tests/test_price_filter.py::test_price_range_combines_with_query_and_category
+FAILED tests/test_price_filter.py::test_price_range_respects_sort_and_pagination
+FAILED tests/test_price_filter.py::test_price_bounds_allow_zero_and_empty_results
+FAILED tests/test_price_filter.py::test_invalid_price_bounds_raise_value_error[6000-5000]
+FAILED tests/test_price_filter.py::test_invalid_price_bounds_raise_value_error[-1-5000]
+FAILED tests/test_price_filter.py::test_invalid_price_bounds_raise_value_error[0--1]
+FAILED tests/test_price_filter.py::test_invalid_price_bounds_raise_value_error[True-5000]
+FAILED tests/test_price_filter.py::test_invalid_price_bounds_raise_value_error[5000-False]
+FAILED tests/test_price_filter.py::test_invalid_price_bounds_raise_value_error[10.5-5000]
+FAILED tests/test_price_filter.py::test_invalid_price_bounds_raise_value_error[5000-9000]
+12 failed in 0.10s

@@ -1,0 +1,21 @@
+{
+  "task_id": "inventory-price-filter",
+  "task": "Add optional min_price and max_price filters to inventory.search.search_products and keep existing query, category, sort, and pagination behavior.",
+  "required_sources": [
+    "minimax/specs/inventory_search.md",
+    "minimax/baseline/inventory/search.py",
+    "minimax/baseline/tests/test_price_filter.py",
+    "minimax/baseline/tests/test_regression.py"
+  ],
+  "expected": {
+    "spec_marker_before": "v1",
+    "spec_marker_after": "v2",
+    "spec_update_marker": "REQ-PRICE-STRICT",
+    "target_tests_before": "nonzero exit; TypeError: unexpected keyword argument 'min_price'",
+    "target_tests_after": "0; 12 passed",
+    "regression_tests_before": "0; 12 passed",
+    "regression_tests_after": "0; 12 passed",
+    "state_status_after_test": "validated",
+    "powercontext_prepared_contains_state": true
+  }
+}

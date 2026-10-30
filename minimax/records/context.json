@@ -1,0 +1,375 @@
+{
+  "task": "Add optional min_price and max_price filters to inventory.search.search_products; keep the existing query, category, sort and pagination behavior.",
+  "task_id": "inventory-price-filter",
+  "required_sources": [
+    "minimax/specs/inventory_search.md",
+    "minimax/demo_project/inventory/search.py",
+    "minimax/demo_project/tests/test_price_filter.py",
+    "minimax/demo_project/tests/test_regression.py"
+  ],
+  "missing_required": [],
+  "specs": [
+    {
+      "doc_id": "spec:specs/inventory_search.md",
+      "kind": "spec",
+      "path": "minimax/specs/inventory_search.md",
+      "title": "Inventory Search Specification",
+      "version": "0351ca8fdd86",
+      "symbols": [
+        "Inventory Search Specification",
+        "Scope",
+        "Functional requirements",
+        "Verification"
+      ],
+      "reason": "required:spec",
+      "score": 100.0,
+      "imported_from": "minimax/validation/spec_update.md",
+      "excerpt": "# Inventory Search Specification\n\nSPEC_VERSION: v2\n\n## Scope\n\n`inventory.search.search_products` is the single search entry point for the demo\ninventory project. It accepts an iterable of `Product` records and returns the\nmatching page as a list.\n\n## Functional requirements\n\n- REQ-SEARCH-QUERY: `query` matches product name or category, case-insensitively.\n- REQ-SEARCH-CATEGORY: `category` is an exact match when supplied.\n- REQ-SEARCH-SORT: supported values are `relevance`, `price_asc`, `price_desc`,\n  and `rating_desc`; unknown values raise `ValueError`.\n- REQ-SEARCH-PAGE: `page` and `page_size` are one-based positive integers;\n  invalid values raise `ValueError`.\n- REQ-PRICE-BOUNDS: add opt"
+    }
+  ],
+  "code": [
+    {
+      "doc_id": "code:demo_project/inventory/search.py",
+      "kind": "code",
+      "path": "minimax/demo_project/inventory/search.py",
+      "title": "demo_project/inventory/search.py",
+      "version": "6ce512cba4f0",
+      "symbols": [
+        "_validate_price_bound",
+        "search_products"
+      ],
+      "reason": "required:code",
+      "score": 100.0,
+      "imported_from": null,
+      "excerpt": "from collections.abc import Iterable\n\nfrom .models import Product\n\nSORT_CHOICES = (\"relevance\", \"price_asc\", \"price_desc\", \"rating_desc\")\n\n\ndef _validate_price_bound(name: str, value: int | None) -> int | None:\n    \"\"\"Return the bound unchanged, or raise ValueError if it is not usable.\n\n    A missing bound (None) means unbounded on that side. Bounds are integer\n    cents, must be non-negative, and bools are rejected even though bool is a\n    subclass of int.\n    \"\"\"\n    if value is None:\n        return None\n    if isinstance(value, bool) or not isinstance(value, int):\n        raise ValueError(f\"{name} must be an integer number of cents, got {value!r}\")\n    if value < 0:\n        raise ValueEr"
+    }
+  ],
+  "tests": [
+    {
+      "doc_id": "test:demo_project/tests/test_price_filter.py",
+      "kind": "test",
+      "path": "minimax/demo_project/tests/test_price_filter.py",
+      "title": "demo_project/tests/test_price_filter.py",
+      "version": "9ff07ab11669",
+      "symbols": [
+        "skus",
+        "test_min_price_is_inclusive",
+        "test_max_price_is_inclusive",
+        "test_price_range_combines_with_query_and_category",
+        "test_price_range_respects_sort_and_pagination",
+        "test_price_bounds_allow_zero_and_empty_results",
+        "test_invalid_price_bounds_raise_value_error"
+      ],
+      "reason": "required:test",
+      "score": 100.0,
+      "imported_from": null,
+      "excerpt": "import pytest\n\nfrom inventory import all_products, search_products\n\n\ndef skus(products):\n    return [product.sku for product in products]\n\n\ndef test_min_price_is_inclusive():\n    result = search_products(all_products(), min_price=5000)\n    assert set(skus(result)) == {\"SKU-001\", \"SKU-004\", \"SKU-005\", \"SKU-007\"}\n\n\ndef test_max_price_is_inclusive():\n    result = search_products(all_products(), max_price=3499)\n    assert set(skus(result)) == {\"SKU-002\", \"SKU-006\", \"SKU-008\"}\n    assert \"SKU-002\" in skus(result)\n\n\ndef test_price_range_combines_with_query_and_category():\n    result = search_products(\n        all_products(),\n        query=\"hub\",\n        category=\"accessory\",\n        min_price=3000"
+    },
+    {
+      "doc_id": "test:demo_project/tests/test_regression.py",
+      "kind": "test",
+      "path": "minimax/demo_project/tests/test_regression.py",
+      "title": "demo_project/tests/test_regression.py",
+      "version": "8caf57cc6d51",
+      "symbols": [
+        "skus",
+        "test_query_is_case_insensitive",
+        "test_category_filter_preserves_relevance_order",
+        "test_price_ascending_sort",
+        "test_rating_sort",
+        "test_pagination_keeps_existing_order",
+        "test_blank_query_returns_everything",
+        "test_unknown_sort_raises_value_error",
+        "test_invalid_pagination_raises_value_error"
+      ],
+      "reason": "required:test",
+      "score": 100.0,
+      "imported_from": null,
+      "excerpt": "import pytest\n\nfrom inventory import all_products, search_products\n\n\ndef skus(products):\n    return [product.sku for product in products]\n\n\ndef test_query_is_case_insensitive():\n    assert skus(search_products(all_products(), query=\"KEYBOARD\")) == [\"SKU-001\"]\n\n\ndef test_category_filter_preserves_relevance_order():\n    assert skus(search_products(all_products(), category=\"accessory\")) == [\n        \"SKU-004\",\n        \"SKU-003\",\n        \"SKU-006\",\n        \"SKU-008\",\n    ]\n\n\ndef test_price_ascending_sort():\n    assert skus(search_products(all_products(), sort=\"price_asc\")) == [\n        \"SKU-008\",\n        \"SKU-006\",\n        \"SKU-002\",\n        \"SKU-003\",\n        \"SKU-005\",\n        \"SKU-001\",\n     "
+    }
+  ],
+  "sources": [
+    {
+      "doc_id": "spec:specs/inventory_search.md",
+      "kind": "spec",
+      "path": "minimax/specs/inventory_search.md",
+      "title": "Inventory Search Specification",
+      "version": "0351ca8fdd86",
+      "symbols": [
+        "Inventory Search Specification",
+        "Scope",
+        "Functional requirements",
+        "Verification"
+      ],
+      "reason": "required:spec",
+      "score": 100.0,
+      "imported_from": "minimax/validation/spec_update.md",
+      "excerpt": "# Inventory Search Specification\n\nSPEC_VERSION: v2\n\n## Scope\n\n`inventory.search.search_products` is the single search entry point for the demo\ninventory project. It accepts an iterable of `Product` records and returns the\nmatching page as a list.\n\n## Functional requirements\n\n- REQ-SEARCH-QUERY: `query` matches product name or category, case-insensitively.\n- REQ-SEARCH-CATEGORY: `category` is an exact match when supplied.\n- REQ-SEARCH-SORT: supported values are `relevance`, `price_asc`, `price_desc`,\n  and `rating_desc`; unknown values raise `ValueError`.\n- REQ-SEARCH-PAGE: `page` and `page_size` are one-based positive integers;\n  invalid values raise `ValueError`.\n- REQ-PRICE-BOUNDS: add opt"
+    },
+    {
+      "doc_id": "code:demo_project/inventory/search.py",
+      "kind": "code",
+      "path": "minimax/demo_project/inventory/search.py",
+      "title": "demo_project/inventory/search.py",
+      "version": "6ce512cba4f0",
+      "symbols": [
+        "_validate_price_bound",
+        "search_products"
+      ],
+      "reason": "required:code",
+      "score": 100.0,
+      "imported_from": null,
+      "excerpt": "from collections.abc import Iterable\n\nfrom .models import Product\n\nSORT_CHOICES = (\"relevance\", \"price_asc\", \"price_desc\", \"rating_desc\")\n\n\ndef _validate_price_bound(name: str, value: int | None) -> int | None:\n    \"\"\"Return the bound unchanged, or raise ValueError if it is not usable.\n\n    A missing bound (None) means unbounded on that side. Bounds are integer\n    cents, must be non-negative, and bools are rejected even though bool is a\n    subclass of int.\n    \"\"\"\n    if value is None:\n        return None\n    if isinstance(value, bool) or not isinstance(value, int):\n        raise ValueError(f\"{name} must be an integer number of cents, got {value!r}\")\n    if value < 0:\n        raise ValueEr"
+    },
+    {
+      "doc_id": "code:demo_project/inventory/__init__.py",
+      "kind": "code",
+      "path": "minimax/demo_project/inventory/__init__.py",
+      "title": "demo_project/inventory/__init__.py",
+      "version": "46cafe5bd99a",
+      "symbols": [],
+      "reason": "ranked",
+      "score": 10.0,
+      "imported_from": null,
+      "excerpt": "from .models import Product\nfrom .repository import all_products\nfrom .search import search_products\n\n__all__ = [\"Product\", \"all_products\", \"search_products\"]\n"
+    },
+    {
+      "doc_id": "code:demo_project/inventory/models.py",
+      "kind": "code",
+      "path": "minimax/demo_project/inventory/models.py",
+      "title": "demo_project/inventory/models.py",
+      "version": "8d8c5a28081f",
+      "symbols": [
+        "Product"
+      ],
+      "reason": "ranked",
+      "score": 10.0,
+      "imported_from": null,
+      "excerpt": "from dataclasses import dataclass\n\n\n@dataclass(frozen=True)\nclass Product:\n    sku: str\n    name: str\n    category: str\n    price_cents: int\n    stock: int\n    rating: float\n"
+    },
+    {
+      "doc_id": "test:demo_project/tests/test_price_filter.py",
+      "kind": "test",
+      "path": "minimax/demo_project/tests/test_price_filter.py",
+      "title": "demo_project/tests/test_price_filter.py",
+      "version": "9ff07ab11669",
+      "symbols": [
+        "skus",
+        "test_min_price_is_inclusive",
+        "test_max_price_is_inclusive",
+        "test_price_range_combines_with_query_and_category",
+        "test_price_range_respects_sort_and_pagination",
+        "test_price_bounds_allow_zero_and_empty_results",
+        "test_invalid_price_bounds_raise_value_error"
+      ],
+      "reason": "required:test",
+      "score": 100.0,
+      "imported_from": null,
+      "excerpt": "import pytest\n\nfrom inventory import all_products, search_products\n\n\ndef skus(products):\n    return [product.sku for product in products]\n\n\ndef test_min_price_is_inclusive():\n    result = search_products(all_products(), min_price=5000)\n    assert set(skus(result)) == {\"SKU-001\", \"SKU-004\", \"SKU-005\", \"SKU-007\"}\n\n\ndef test_max_price_is_inclusive():\n    result = search_products(all_products(), max_price=3499)\n    assert set(skus(result)) == {\"SKU-002\", \"SKU-006\", \"SKU-008\"}\n    assert \"SKU-002\" in skus(result)\n\n\ndef test_price_range_combines_with_query_and_category():\n    result = search_products(\n        all_products(),\n        query=\"hub\",\n        category=\"accessory\",\n        min_price=3000"
+    },
+    {
+      "doc_id": "test:demo_project/tests/test_regression.py",
+      "kind": "test",
+      "path": "minimax/demo_project/tests/test_regression.py",
+      "title": "demo_project/tests/test_regression.py",
+      "version": "8caf57cc6d51",
+      "symbols": [
+        "skus",
+        "test_query_is_case_insensitive",
+        "test_category_filter_preserves_relevance_order",
+        "test_price_ascending_sort",
+        "test_rating_sort",
+        "test_pagination_keeps_existing_order",
+        "test_blank_query_returns_everything",
+        "test_unknown_sort_raises_value_error",
+        "test_invalid_pagination_raises_value_error"
+      ],
+      "reason": "required:test",
+      "score": 100.0,
+      "imported_from": null,
+      "excerpt": "import pytest\n\nfrom inventory import all_products, search_products\n\n\ndef skus(products):\n    return [product.sku for product in products]\n\n\ndef test_query_is_case_insensitive():\n    assert skus(search_products(all_products(), query=\"KEYBOARD\")) == [\"SKU-001\"]\n\n\ndef test_category_filter_preserves_relevance_order():\n    assert skus(search_products(all_products(), category=\"accessory\")) == [\n        \"SKU-004\",\n        \"SKU-003\",\n        \"SKU-006\",\n        \"SKU-008\",\n    ]\n\n\ndef test_price_ascending_sort():\n    assert skus(search_products(all_products(), sort=\"price_asc\")) == [\n        \"SKU-008\",\n        \"SKU-006\",\n        \"SKU-002\",\n        \"SKU-003\",\n        \"SKU-005\",\n        \"SKU-001\",\n     "
+    }
+  ],
+  "state_before": {
+    "completed": [
+      "materials_imported",
+      "context_built",
+      "patch_applied",
+      "tests_run",
+      "spec_updated"
+    ],
+    "pending": [],
+    "required_sources": [
+      "minimax/specs/inventory_search.md",
+      "minimax/demo_project/inventory/search.py",
+      "minimax/demo_project/tests/test_price_filter.py",
+      "minimax/demo_project/tests/test_regression.py"
+    ],
+    "spec_marker": "v2",
+    "spec_version": "0351ca8fdd86",
+    "status": "spec_updated",
+    "task_id": "inventory-price-filter",
+    "updated_at": "2026-10-27T06:50:21.351625+00:00",
+    "validation": {
+      "commands": {
+        "regression": "python -m pytest tests/test_regression.py -q",
+        "target": "python -m pytest tests/test_price_filter.py -q"
+      },
+      "regression": "passed",
+      "target": "passed"
+    }
+  },
+  "task_state": {
+    "completed": [
+      "materials_imported",
+      "context_built",
+      "patch_applied",
+      "tests_run",
+      "spec_updated"
+    ],
+    "pending": [
+      "apply_patch",
+      "run_target_tests",
+      "run_regression_tests"
+    ],
+    "required_sources": [
+      "minimax/specs/inventory_search.md",
+      "minimax/demo_project/inventory/search.py",
+      "minimax/demo_project/tests/test_price_filter.py",
+      "minimax/demo_project/tests/test_regression.py"
+    ],
+    "spec_marker": "v2",
+    "spec_version": "0351ca8fdd86",
+    "status": "context_ready",
+    "task_id": "inventory-price-filter",
+    "updated_at": "2026-10-27T06:50:30.496421+00:00",
+    "validation": {
+      "commands": {
+        "regression": "python -m pytest tests/test_regression.py -q",
+        "target": "python -m pytest tests/test_price_filter.py -q"
+      },
+      "regression": "pending",
+      "target": "pending"
+    }
+  },
+  "powercontext": {
+    "scope_id": "scp_662x6sedtswf15jh5hnpcef1y2",
+    "prepared_status": "ready",
+    "prepared_bytes": 3999,
+    "prepared_contains_state": true,
+    "state_entries": 5,
+    "save": {
+      "scope_id": "scp_662x6sedtswf15jh5hnpcef1y2",
+      "entry_id": "mem_ent_9975b1da044b4d5a95c7c10a876b41e5",
+      "memory_ref": {
+        "family": "memory",
+        "artifact_id": "memory",
+        "revision": 6
+      },
+      "saved_at": "2026-10-27T06:50:31.241803+00:00"
+    }
+  },
+  "db": {
+    "backend": "seekdb",
+    "database": "minimax/.state/seekdb",
+    "queries": [
+      {
+        "kind": "spec",
+        "terms": [
+          "min_price",
+          "max_price",
+          "price",
+          "filter",
+          "inventory",
+          "search",
+          "spec",
+          "regression",
+          "pagination",
+          "bounds",
+          "validation",
+          "optional",
+          "filters",
+          "search_products",
+          "existing",
+          "query",
+          "category",
+          "sort",
+          "behavior"
+        ],
+        "sql": "SELECT doc_id, kind, path, title, content, metadata, version, updated_at FROM engineering_docs WHERE kind = 'spec' AND ((INSTR(LOWER(content), 'min_price') > 0 OR INSTR(LOWER(title), 'min_price') > 0 OR INSTR(LOWER(path), 'min_price') > 0) OR (INSTR(LOWER(content), 'max_price') > 0 OR INSTR(LOWER(title), 'max_price') > 0 OR INSTR(LOWER(path), 'max_price') > 0) OR (INSTR(LOWER(content), 'price') > 0 OR INSTR(LOWER(title), 'price') > 0 OR INSTR(LOWER(path), 'price') > 0) OR (INSTR(LOWER(content), 'filter') > 0 OR INSTR(LOWER(title), 'filter') > 0 OR INSTR(LOWER(path), 'filter') > 0) OR (INSTR(LOWER(content), 'inventory') > 0 OR INSTR(LOWER(title), 'inventory') > 0 OR INSTR(LOWER(path), 'inventory') > 0) OR (INSTR(LOWER(content), 'search') > 0 OR INSTR(LOWER(title), 'search') > 0 OR INSTR(LOWER(path), 'search') > 0) OR (INSTR(LOWER(content), 'spec') > 0 OR INSTR(LOWER(title), 'spec') > 0 OR INSTR(LOWER(path), 'spec') > 0) OR (INSTR(LOWER(content), 'regression') > 0 OR INSTR(LOWER(title), 'regression') > 0 OR INSTR(LOWER(path), 'regression') > 0) OR (INSTR(LOWER(content), 'pagination') > 0 OR INSTR(LOWER(title), 'pagination') > 0 OR INSTR(LOWER(path), 'pagination') > 0) OR (INSTR(LOWER(content), 'bounds') > 0 OR INSTR(LOWER(title), 'bounds') > 0 OR INSTR(LOWER(path), 'bounds') > 0) OR (INSTR(LOWER(content), 'validation') > 0 OR INSTR(LOWER(title), 'validation') > 0 OR INSTR(LOWER(path), 'validation') > 0) OR (INSTR(LOWER(content), 'optional') > 0 OR INSTR(LOWER(title), 'optional') > 0 OR INSTR(LOWER(path), 'optional') > 0) OR (INSTR(LOWER(content), 'filters') > 0 OR INSTR(LOWER(title), 'filters') > 0 OR INSTR(LOWER(path), 'filters') > 0) OR (INSTR(LOWER(content), 'search_products') > 0 OR INSTR(LOWER(title), 'search_products') > 0 OR INSTR(LOWER(path), 'search_products') > 0) OR (INSTR(LOWER(content), 'existing') > 0 OR INSTR(LOWER(title), 'existing') > 0 OR INSTR(LOWER(path), 'existing') > 0) OR (INSTR(LOWER(content), 'query') > 0 OR INSTR(LOWER(title), 'query') > 0 OR INSTR(LOWER(path), 'query') > 0) OR (INSTR(LOWER(content), 'category') > 0 OR INSTR(LOWER(title), 'category') > 0 OR INSTR(LOWER(path), 'category') > 0) OR (INSTR(LOWER(content), 'sort') > 0 OR INSTR(LOWER(title), 'sort') > 0 OR INSTR(LOWER(path), 'sort') > 0) OR (INSTR(LOWER(content), 'behavior') > 0 OR INSTR(LOWER(title), 'behavior') > 0 OR INSTR(LOWER(path), 'behavior') > 0)) ORDER BY path",
+        "row_count": 1,
+        "fallback": false,
+        "doc_ids": [
+          "spec:specs/inventory_search.md"
+        ]
+      },
+      {
+        "kind": "code",
+        "terms": [
+          "min_price",
+          "max_price",
+          "price",
+          "filter",
+          "inventory",
+          "search",
+          "spec",
+          "regression",
+          "pagination",
+          "bounds",
+          "validation",
+          "optional",
+          "filters",
+          "search_products",
+          "existing",
+          "query",
+          "category",
+          "sort",
+          "behavior"
+        ],
+        "sql": "SELECT doc_id, kind, path, title, content, metadata, version, updated_at FROM engineering_docs WHERE kind = 'code' AND ((INSTR(LOWER(content), 'min_price') > 0 OR INSTR(LOWER(title), 'min_price') > 0 OR INSTR(LOWER(path), 'min_price') > 0) OR (INSTR(LOWER(content), 'max_price') > 0 OR INSTR(LOWER(title), 'max_price') > 0 OR INSTR(LOWER(path), 'max_price') > 0) OR (INSTR(LOWER(content), 'price') > 0 OR INSTR(LOWER(title), 'price') > 0 OR INSTR(LOWER(path), 'price') > 0) OR (INSTR(LOWER(content), 'filter') > 0 OR INSTR(LOWER(title), 'filter') > 0 OR INSTR(LOWER(path), 'filter') > 0) OR (INSTR(LOWER(content), 'inventory') > 0 OR INSTR(LOWER(title), 'inventory') > 0 OR INSTR(LOWER(path), 'inventory') > 0) OR (INSTR(LOWER(content), 'search') > 0 OR INSTR(LOWER(title), 'search') > 0 OR INSTR(LOWER(path), 'search') > 0) OR (INSTR(LOWER(content), 'spec') > 0 OR INSTR(LOWER(title), 'spec') > 0 OR INSTR(LOWER(path), 'spec') > 0) OR (INSTR(LOWER(content), 'regression') > 0 OR INSTR(LOWER(title), 'regression') > 0 OR INSTR(LOWER(path), 'regression') > 0) OR (INSTR(LOWER(content), 'pagination') > 0 OR INSTR(LOWER(title), 'pagination') > 0 OR INSTR(LOWER(path), 'pagination') > 0) OR (INSTR(LOWER(content), 'bounds') > 0 OR INSTR(LOWER(title), 'bounds') > 0 OR INSTR(LOWER(path), 'bounds') > 0) OR (INSTR(LOWER(content), 'validation') > 0 OR INSTR(LOWER(title), 'validation') > 0 OR INSTR(LOWER(path), 'validation') > 0) OR (INSTR(LOWER(content), 'optional') > 0 OR INSTR(LOWER(title), 'optional') > 0 OR INSTR(LOWER(path), 'optional') > 0) OR (INSTR(LOWER(content), 'filters') > 0 OR INSTR(LOWER(title), 'filters') > 0 OR INSTR(LOWER(path), 'filters') > 0) OR (INSTR(LOWER(content), 'search_products') > 0 OR INSTR(LOWER(title), 'search_products') > 0 OR INSTR(LOWER(path), 'search_products') > 0) OR (INSTR(LOWER(content), 'existing') > 0 OR INSTR(LOWER(title), 'existing') > 0 OR INSTR(LOWER(path), 'existing') > 0) OR (INSTR(LOWER(content), 'query') > 0 OR INSTR(LOWER(title), 'query') > 0 OR INSTR(LOWER(path), 'query') > 0) OR (INSTR(LOWER(content), 'category') > 0 OR INSTR(LOWER(title), 'category') > 0 OR INSTR(LOWER(path), 'category') > 0) OR (INSTR(LOWER(content), 'sort') > 0 OR INSTR(LOWER(title), 'sort') > 0 OR INSTR(LOWER(path), 'sort') > 0) OR (INSTR(LOWER(content), 'behavior') > 0 OR INSTR(LOWER(title), 'behavior') > 0 OR INSTR(LOWER(path), 'behavior') > 0)) ORDER BY path",
+        "row_count": 4,
+        "fallback": false,
+        "doc_ids": [
+          "code:demo_project/inventory/search.py",
+          "code:demo_project/inventory/__init__.py",
+          "code:demo_project/inventory/models.py"
+        ]
+      },
+      {
+        "kind": "test",
+        "terms": [
+          "min_price",
+          "max_price",
+          "price",
+          "filter",
+          "inventory",
+          "search",
+          "spec",
+          "regression",
+          "pagination",
+          "bounds",
+          "validation",
+          "optional",
+          "filters",
+          "search_products",
+          "existing",
+          "query",
+          "category",
+          "sort",
+          "behavior"
+        ],
+        "sql": "SELECT doc_id, kind, path, title, content, metadata, version, updated_at FROM engineering_docs WHERE kind = 'test' AND ((INSTR(LOWER(content), 'min_price') > 0 OR INSTR(LOWER(title), 'min_price') > 0 OR INSTR(LOWER(path), 'min_price') > 0) OR (INSTR(LOWER(content), 'max_price') > 0 OR INSTR(LOWER(title), 'max_price') > 0 OR INSTR(LOWER(path), 'max_price') > 0) OR (INSTR(LOWER(content), 'price') > 0 OR INSTR(LOWER(title), 'price') > 0 OR INSTR(LOWER(path), 'price') > 0) OR (INSTR(LOWER(content), 'filter') > 0 OR INSTR(LOWER(title), 'filter') > 0 OR INSTR(LOWER(path), 'filter') > 0) OR (INSTR(LOWER(content), 'inventory') > 0 OR INSTR(LOWER(title), 'inventory') > 0 OR INSTR(LOWER(path), 'inventory') > 0) OR (INSTR(LOWER(content), 'search') > 0 OR INSTR(LOWER(title), 'search') > 0 OR INSTR(LOWER(path), 'search') > 0) OR (INSTR(LOWER(content), 'spec') > 0 OR INSTR(LOWER(title), 'spec') > 0 OR INSTR(LOWER(path), 'spec') > 0) OR (INSTR(LOWER(content), 'regression') > 0 OR INSTR(LOWER(title), 'regression') > 0 OR INSTR(LOWER(path), 'regression') > 0) OR (INSTR(LOWER(content), 'pagination') > 0 OR INSTR(LOWER(title), 'pagination') > 0 OR INSTR(LOWER(path), 'pagination') > 0) OR (INSTR(LOWER(content), 'bounds') > 0 OR INSTR(LOWER(title), 'bounds') > 0 OR INSTR(LOWER(path), 'bounds') > 0) OR (INSTR(LOWER(content), 'validation') > 0 OR INSTR(LOWER(title), 'validation') > 0 OR INSTR(LOWER(path), 'validation') > 0) OR (INSTR(LOWER(content), 'optional') > 0 OR INSTR(LOWER(title), 'optional') > 0 OR INSTR(LOWER(path), 'optional') > 0) OR (INSTR(LOWER(content), 'filters') > 0 OR INSTR(LOWER(title), 'filters') > 0 OR INSTR(LOWER(path), 'filters') > 0) OR (INSTR(LOWER(content), 'search_products') > 0 OR INSTR(LOWER(title), 'search_products') > 0 OR INSTR(LOWER(path), 'search_products') > 0) OR (INSTR(LOWER(content), 'existing') > 0 OR INSTR(LOWER(title), 'existing') > 0 OR INSTR(LOWER(path), 'existing') > 0) OR (INSTR(LOWER(content), 'query') > 0 OR INSTR(LOWER(title), 'query') > 0 OR INSTR(LOWER(path), 'query') > 0) OR (INSTR(LOWER(content), 'category') > 0 OR INSTR(LOWER(title), 'category') > 0 OR INSTR(LOWER(path), 'category') > 0) OR (INSTR(LOWER(content), 'sort') > 0 OR INSTR(LOWER(title), 'sort') > 0 OR INSTR(LOWER(path), 'sort') > 0) OR (INSTR(LOWER(content), 'behavior') > 0 OR INSTR(LOWER(title), 'behavior') > 0 OR INSTR(LOWER(path), 'behavior') > 0)) ORDER BY path",
+        "row_count": 2,
+        "fallback": false,
+        "doc_ids": [
+          "test:demo_project/tests/test_price_filter.py",
+          "test:demo_project/tests/test_regression.py"
+        ]
+      }
+    ]
+  },
+  "spec_marker": "v2",
+  "spec_version": "0351ca8fdd86",
+  "context_text": "# SDD task context\n\nTask: Add optional min_price and max_price filters to inventory.search.search_products; keep the existing query, category, sort and pagination behavior.\n\nThe specifications, code, and tests below were selected from seekdb.\nThe task state was loaded from PowerContext.\n\n## Specifications\n\n### minimax/specs/inventory_search.md (version 0351ca8fdd86)\n# Inventory Search Specification\n\nSPEC_VERSION: v2\n\n## Scope\n\n`inventory.search.search_products` is the single search entry point for the demo\ninventory project. It accepts an iterable of `Product` records and returns the\nmatching page as a list.\n\n## Functional requirements\n\n- REQ-SEARCH-QUERY: `query` matches product name or category, case-insensitively.\n- REQ-SEARCH-CATEGORY: `category` is an exact match when supplied.\n- REQ-SEARCH-SORT: supported values are `relevance`, `price_asc`, `price_desc`,\n  and `rating_desc`; unknown values raise `ValueError`.\n- REQ-SEARCH-PAGE: `page` and `page_size` are one-based positive integers;\n  invalid values raise `ValueError`.\n- REQ-PRICE-BOUNDS: add optional keyword arguments `min_price` and `max_price`.\n  Prices are integer cents. Both bounds are inclusive. A missing bound means\n  unbounded on that side.\n- REQ-PRICE-RANGE: when both bounds are present, `min_price` must be less than\n  or equal to `max_price`; otherwise raise `ValueError`.\n- REQ-PRICE-VALIDATION: bounds must be integers (not `bool`) and must be\n  non-negative; invalid values raise `ValueError`.\n- REQ-PRICE-STRICT: newly clarified in v2: reject `bool`, `float`, and `str`\n  explicitly, allow zero, and return an empty list when no product matches.\n- REQ-PRICE-COMBINE: price bounds combine with `query`, `category`, sorting, and\n  pagination without changing their existing behavior.\n\n## Verification\n\n- Target tests: `tests/test_price_filter.py`\n- Regression tests: `tests/test_regression.py`\n\nThe target tests are expected to fail before the price filter exists because the\nkeyword arguments are not accepted. They must pass after the change, with every\nregression test still passing.\n\n\n## Code\n\n### minimax/demo_project/inventory/search.py (symbols: _validate_price_bound, search_products)\n```python\nfrom collections.abc import Iterable\n\nfrom .models import Product\n\nSORT_CHOICES = (\"relevance\", \"price_asc\", \"price_desc\", \"rating_desc\")\n\n\ndef _validate_price_bound(name: str, value: int | None) -> int | None:\n    \"\"\"Return the bound unchanged, or raise ValueError if it is not usable.\n\n    A missing bound (None) means unbounded on that side. Bounds are integer\n    cents, must be non-negative, and bools are rejected even though bool is a\n    subclass of int.\n    \"\"\"\n    if value is None:\n        return None\n    if isinstance(value, bool) or not isinstance(value, int):\n        raise ValueError(f\"{name} must be an integer number of cents, got {value!r}\")\n    if value < 0:\n        raise ValueError(f\"{name} must be >= 0, got {value}\")\n    return value\n\n\ndef search_products(\n    products: Iterable[Product],\n    *,\n    query: str | None = None,\n    category: str | None = None,\n    sort: str = \"relevance\",\n    page: int = 1,\n    page_size: int = 10,\n    min_price: int | None = None,\n    max_price: int | None = None,\n) -> list[Product]:\n    if page < 1:\n        raise ValueError(\"page must be >= 1\")\n    if page_size < 1:\n        raise ValueError(\"page_size must be >= 1\")\n    if sort not in SORT_CHOICES:\n        raise ValueError(f\"unsupported sort: {sort}\")\n\n    min_price = _validate_price_bound(\"min_price\", min_price)\n    max_price = _validate_price_bound(\"max_price\", max_price)\n    if min_price is not None and max_price is not None and min_price > max_price:\n        raise ValueError(f\"min_price ({min_price}) must be <= max_price ({max_price})\")\n\n    results = list(products)\n\n    if query is not None:\n        needle = query.strip().lower()\n        if needle:\n            results = [\n                product\n                for product in results\n                if needle in product.name.lower() or needle in product.category.lower()\n            ]\n\n    if category is not None:\n        results = [product for product in results if product.category == category]\n\n    if min_price is not None:\n        results = [product for product in results if product.price_cents >= min_price]\n    if max_price is not None:\n        results = [product for product in results if product.price_cents <= max_price]\n\n    if sort == \"price_asc\":\n        results.sort(key=lambda product: (product.price_cents, product.sku))\n    elif sort == \"price_desc\":\n        results.sort(key=lambda product: (-product.price_cents, product.sku))\n    elif sort == \"rating_desc\":\n        results.sort(key=lambda product: (-product.rating, product.sku))\n    else:\n        results.sort(key=lambda product: (-product.rating, product.price_cents, product.sku))\n\n    start = (page - 1) * page_size\n    stop = start + page_size\n    return results[start:stop]\n\n```\n\n## Tests\n\n### minimax/demo_project/tests/test_price_filter.py\n```python\nimport pytest\n\nfrom inventory import all_products, search_products\n\n\ndef skus(products):\n    return [product.sku for product in products]\n\n\ndef test_min_price_is_inclusive():\n    result = search_products(all_products(), min_price=5000)\n    assert set(skus(result)) == {\"SKU-001\", \"SKU-004\", \"SKU-005\", \"SKU-007\"}\n\n\ndef test_max_price_is_inclusive():\n    result = search_products(all_products(), max_price=3499)\n    assert set(skus(result)) == {\"SKU-002\", \"SKU-006\", \"SKU-008\"}\n    assert \"SKU-002\" in skus(result)\n\n\ndef test_price_range_combines_with_query_and_category():\n    result = search_products(\n        all_products(),\n        query=\"hub\",\n        category=\"accessory\",\n        min_price=3000,\n        max_price=6000,\n    )\n    assert skus(result) == [\"SKU-003\"]\n\n\ndef test_price_range_respects_sort_and_pagination():\n    result = search_products(\n        all_products(),\n        min_price=2000,\n        max_price=9000,\n        sort=\"price_asc\",\n        page=2,\n        page_size=2,\n    )\n    assert skus(result) == [\"SKU-003\", \"SKU-005\"]\n\n\ndef test_price_bounds_allow_zero_and_empty_results():\n    assert search_products(all_products(), min_price=0, max_price=0) == []\n\n\n@pytest.mark.parametrize(\n    (\"min_price\", \"max_price\"),\n    [\n        (6000, 5000),\n        (-1, 5000),\n        (0, -1),\n        (True, 5000),\n        (5000, False),\n        (10.5, 5000),\n        (\"5000\", 9000),\n    ],\n)\ndef test_invalid_price_bounds_raise_value_error(min_price, max_price):\n    with pytest.raises(ValueError):\n        search_products(all_products(), min_price=min_price, max_price=max_price)\n\n```\n\n### minimax/demo_project/tests/test_regression.py\n```python\nimport pytest\n\nfrom inventory import all_products, search_products\n\n\ndef skus(products):\n    return [product.sku for product in products]\n\n\ndef test_query_is_case_insensitive():\n    assert skus(search_products(all_products(), query=\"KEYBOARD\")) == [\"SKU-001\"]\n\n\ndef test_category_filter_preserves_relevance_order():\n    assert skus(search_products(all_products(), category=\"accessory\")) == [\n        \"SKU-004\",\n        \"SKU-003\",\n        \"SKU-006\",\n        \"SKU-008\",\n    ]\n\n\ndef test_price_ascending_sort():\n    assert skus(search_products(all_products(), sort=\"price_asc\")) == [\n        \"SKU-008\",\n        \"SKU-006\",\n        \"SKU-002\",\n        \"SKU-003\",\n        \"SKU-005\",\n        \"SKU-001\",\n        \"SKU-004\",\n        \"SKU-007\",\n    ]\n\n\ndef test_rating_sort():\n    assert skus(search_products(all_products(), sort=\"rating_desc\")) == [\n        \"SKU-007\",\n        \"SKU-001\",\n        \"SKU-004\",\n        \"SKU-002\",\n        \"SKU-003\",\n        \"SKU-006\",\n        \"SKU-005\",\n        \"SKU-008\",\n    ]\n\n\ndef test_pagination_keeps_existing_order():\n    assert skus(search_products(all_products(), page=2, page_size=3)) == [\n        \"SKU-002\",\n        \"SKU-003\",\n        \"SKU-006\",\n    ]\n\n\ndef test_blank_query_returns_everything():\n    assert len(search_products(all_products(), query=\"   \")) == 8\n\n\n@pytest.mark.parametrize(\"sort\", [\"newest\", \"\", \"PRICE_ASC\"])\ndef test_unknown_sort_raises_value_error(sort):\n    with pytest.raises(ValueError):\n        search_products(all_products(), sort=sort)\n\n\n@pytest.mark.parametrize((\"page\", \"page_size\"), [(0, 10), (1, 0), (-1, 5)])\ndef test_invalid_pagination_raises_value_error(page, page_size):\n    with pytest.raises(ValueError):\n        search_products(all_products(), page=page, page_size=page_size)\n\n```\n\n## Saved task state (PowerContext)\n```json\n{\n  \"completed\": [\n    \"materials_imported\",\n    \"context_built\",\n    \"patch_applied\",\n    \"tests_run\",\n    \"spec_updated\"\n  ],\n  \"pending\": [\n    \"apply_patch\",\n    \"run_target_tests\",\n    \"run_regression_tests\"\n  ],\n  \"required_sources\": [\n    \"minimax/specs/inventory_search.md\",\n    \"minimax/demo_project/inventory/search.py\",\n    \"minimax/demo_project/tests/test_price_filter.py\",\n    \"minimax/demo_project/tests/test_regression.py\"\n  ],\n  \"spec_marker\": \"v2\",\n  \"spec_version\": \"0351ca8fdd86\",\n  \"status\": \"context_ready\",\n  \"task_id\": \"inventory-price-filter\",\n  \"updated_at\": \"2026-10-27T06:50:30.496421+00:00\",\n  \"validation\": {\n    \"commands\": {\n      \"regression\": \"python -m pytest tests/test_regression.py -q\",\n      \"target\": \"python -m pytest tests/test_price_filter.py -q\"\n    },\n    \"regression\": \"pending\",\n    \"target\": \"pending\"\n  }\n}\n```\n\n## Required source paths\n- minimax/specs/inventory_search.md\n- minimax/demo_project/inventory/search.py\n- minimax/demo_project/tests/test_price_filter.py\n- minimax/demo_project/tests/test_regression.py",
+  "ok": true
+}

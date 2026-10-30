@@ -1,0 +1,77 @@
+from collections.abc import Iterable
+
+from .models import Product
+
+SORT_CHOICES = ("relevance", "price_asc", "price_desc", "rating_desc")
+
+
+def _validate_price_bound(name: str, value: int | None) -> int | None:
+    """Return the bound unchanged, or raise ValueError if it is not usable.
+
+    A missing bound (None) means unbounded on that side. Bounds are integer
+    cents, must be non-negative, and bools are rejected even though bool is a
+    subclass of int.
+    """
+    if value is None:
+        return None
+    if isinstance(value, bool) or not isinstance(value, int):
+        raise ValueError(f"{name} must be an integer number of cents, got {value!r}")
+    if value < 0:
+        raise ValueError(f"{name} must be >= 0, got {value}")
+    return value
+
+
+def search_products(
+    products: Iterable[Product],
+    *,
+    query: str | None = None,
+    category: str | None = None,
+    sort: str = "relevance",
+    page: int = 1,
+    page_size: int = 10,
+    min_price: int | None = None,
+    max_price: int | None = None,
+) -> list[Product]:
+    if page < 1:
+        raise ValueError("page must be >= 1")
+    if page_size < 1:
+        raise ValueError("page_size must be >= 1")
+    if sort not in SORT_CHOICES:
+        raise ValueError(f"unsupported sort: {sort}")
+
+    min_price = _validate_price_bound("min_price", min_price)
+    max_price = _validate_price_bound("max_price", max_price)
+    if min_price is not None and max_price is not None and min_price > max_price:
+        raise ValueError(f"min_price ({min_price}) must be <= max_price ({max_price})")
+
+    results = list(products)
+
+    if query is not None:
+        needle = query.strip().lower()
+        if needle:
+            results = [
+                product
+                for product in results
+                if needle in product.name.lower() or needle in product.category.lower()
+            ]
+
+    if category is not None:
+        results = [product for product in results if product.category == category]
+
+    if min_price is not None:
+        results = [product for product in results if product.price_cents >= min_price]
+    if max_price is not None:
+        results = [product for product in results if product.price_cents <= max_price]
+
+    if sort == "price_asc":
+        results.sort(key=lambda product: (product.price_cents, product.sku))
+    elif sort == "price_desc":
+        results.sort(key=lambda product: (-product.price_cents, product.sku))
+    elif sort == "rating_desc":
+        results.sort(key=lambda product: (-product.rating, product.sku))
+    else:
+        results.sort(key=lambda product: (-product.rating, product.price_cents, product.sku))
+
+    start = (page - 1) * page_size
+    stop = start + page_size
+    return results[start:stop]

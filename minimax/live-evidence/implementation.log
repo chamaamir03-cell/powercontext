@@ -1,5 +1,0 @@
-{"command": ["/home/books/work/powercontext-pdf/.venv/bin/python", "-m", "minimax.engineering_context", "implement", "--root", "/tmp/minimax-acceptance-ktvfyyue/project", "--project", "minimax-live-b17be8f58963456aaafa127fb8382518", "--task-id", "supplier-filter", "--task", "Add inventory supplier filtering, combine it with warehouse filtering, and preserve the original order. Modify inventory.py only; do not modify tests or specifications.", "--test-command", "/home/books/work/powercontext-pdf/.venv/bin/python -m unittest -v test_inventory"], "exit_code": 2}
---- stdout ---
-
---- stderr ---
-engineering-context: MiniMax patch did not apply cleanly: error: corrupt patch at line 12

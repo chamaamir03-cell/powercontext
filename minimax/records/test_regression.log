@@ -1,0 +1,9 @@
+command: /home/lab929/gtx/powercontext/competition/.venv/bin/python -m pytest tests/test_regression.py -q
+cwd: /home/lab929/gtx/powercontext/minimax/.work/demo
+code_version: sha256:6ce512cba4f0
+exit_code: 0
+python: 3.12.12
+started_at: 2026-10-27T06:50:02.318505+00:00
+
+............                                                             [100%]
+12 passed in 0.05s

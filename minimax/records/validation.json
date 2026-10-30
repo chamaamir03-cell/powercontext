@@ -1,0 +1,259 @@
+{
+  "ok": true,
+  "step": "validate",
+  "checks": [
+    {
+      "name": "reset_exit",
+      "passed": true,
+      "detail": 0
+    },
+    {
+      "name": "init_exit",
+      "passed": true,
+      "detail": 0
+    },
+    {
+      "name": "context_required_sources",
+      "passed": true,
+      "detail": [
+        "minimax/demo_project/inventory/__init__.py",
+        "minimax/demo_project/inventory/models.py",
+        "minimax/demo_project/inventory/search.py",
+        "minimax/demo_project/tests/test_price_filter.py",
+        "minimax/demo_project/tests/test_regression.py",
+        "minimax/specs/inventory_search.md"
+      ]
+    },
+    {
+      "name": "context_has_spec",
+      "passed": true,
+      "detail": [
+        "minimax/specs/inventory_search.md"
+      ]
+    },
+    {
+      "name": "context_has_code",
+      "passed": true,
+      "detail": [
+        "minimax/demo_project/inventory/search.py"
+      ]
+    },
+    {
+      "name": "context_has_tests",
+      "passed": true,
+      "detail": [
+        "minimax/demo_project/tests/test_price_filter.py",
+        "minimax/demo_project/tests/test_regression.py"
+      ]
+    },
+    {
+      "name": "apply_exit",
+      "passed": true,
+      "detail": 0
+    },
+    {
+      "name": "tests_pass_after_patch",
+      "passed": true,
+      "detail": {
+        "ok": true,
+        "step": "test",
+        "workspace": "/home/lab929/gtx/powercontext/minimax/.work/demo",
+        "target": {
+          "exit_code": 0,
+          "status": "passed",
+          "tail": "............                                                             [100%]\n12 passed in 0.07s\n"
+        },
+        "regression": {
+          "exit_code": 0,
+          "status": "passed",
+          "tail": "............                                                             [100%]\n12 passed in 0.05s\n"
+        },
+        "task_state": {
+          "completed": [
+            "materials_imported",
+            "context_built",
+            "patch_applied",
+            "tests_run"
+          ],
+          "pending": [],
+          "required_sources": [
+            "minimax/specs/inventory_search.md",
+            "minimax/demo_project/inventory/search.py",
+            "minimax/demo_project/tests/test_price_filter.py",
+            "minimax/demo_project/tests/test_regression.py"
+          ],
+          "status": "validated",
+          "task_id": "inventory-price-filter",
+          "updated_at": "2026-10-27T06:50:05.915002+00:00",
+          "validation": {
+            "regression": "passed",
+            "target": "passed",
+            "commands": {
+              "target": "python -m pytest tests/test_price_filter.py -q",
+              "regression": "python -m pytest tests/test_regression.py -q"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "powercontext_state_reload",
+      "passed": true,
+      "detail": {
+        "completed": [
+          "materials_imported",
+          "context_built",
+          "patch_applied",
+          "tests_run"
+        ],
+        "pending": [],
+        "required_sources": [
+          "minimax/specs/inventory_search.md",
+          "minimax/demo_project/inventory/search.py",
+          "minimax/demo_project/tests/test_price_filter.py",
+          "minimax/demo_project/tests/test_regression.py"
+        ],
+        "status": "validated",
+        "task_id": "inventory-price-filter",
+        "updated_at": "2026-10-27T06:50:05.915356+00:00",
+        "validation": {
+          "commands": {
+            "regression": "python -m pytest tests/test_regression.py -q",
+            "target": "python -m pytest tests/test_price_filter.py -q"
+          },
+          "regression": "passed",
+          "target": "passed"
+        }
+      }
+    },
+    {
+      "name": "spec_update_exit",
+      "passed": true,
+      "detail": 0
+    },
+    {
+      "name": "context_uses_updated_spec",
+      "passed": true,
+      "detail": {
+        "marker": "v2",
+        "version": "0351ca8fdd86"
+      }
+    },
+    {
+      "name": "target_tests_fail_before_pass_after",
+      "passed": true,
+      "detail": {
+        "ok": true,
+        "step": "before_after",
+        "workspace": "/home/lab929/gtx/powercontext/minimax/.work/before_after",
+        "applied": {
+          "mode": "replay",
+          "patch": "/home/lab929/gtx/powercontext/minimax/patches/price_filter.patch",
+          "returncode": 0
+        },
+        "before": {
+          "target_exit": 1,
+          "regression_exit": 0,
+          "target_failed_for_missing_behavior": true,
+          "target_tail": "rd argument 'min_price'\n\ntests/test_price_filter.py:62: TypeError\n=========================== short test summary info ============================\nFAILED tests/test_price_filter.py::test_min_price_is_inclusive - TypeError: s...\nFAILED tests/test_price_filter.py::test_max_price_is_inclusive - TypeError: s...\nFAILED tests/test_price_filter.py::test_price_range_combines_with_query_and_category\nFAILED tests/test_price_filter.py::test_price_range_respects_sort_and_pagination\nFAILED tests/test_price_filter.py::test_price_bounds_allow_zero_and_empty_results\nFAILED tests/test_price_filter.py::test_invalid_price_bounds_raise_value_error[6000-5000]\nFAILED tests/test_price_filter.py::test_invalid_price_bounds_raise_value_error[-1-5000]\nFAILED tests/test_price_filter.py::test_invalid_price_bounds_raise_value_error[0--1]\nFAILED tests/test_price_filter.py::test_invalid_price_bounds_raise_value_error[True-5000]\nFAILED tests/test_price_filter.py::test_invalid_price_bounds_raise_value_error[5000-False]\nFAILED tests/test_price_filter.py::test_invalid_price_bounds_raise_value_error[10.5-5000]\nFAILED tests/test_price_filter.py::test_invalid_price_bounds_raise_value_error[5000-9000]\n12 failed in 0.10s\n",
+          "regression_tail": "............                                                             [100%]\n12 passed in 0.04s\n"
+        },
+        "after": {
+          "target_exit": 0,
+          "regression_exit": 0,
+          "target_tail": "............                                                             [100%]\n12 passed in 0.04s\n",
+          "regression_tail": "............                                                             [100%]\n12 passed in 0.03s\n"
+        }
+      }
+    },
+    {
+      "name": "regression_tests_pass_before_and_after",
+      "passed": true,
+      "detail": {
+        "ok": true,
+        "step": "before_after",
+        "workspace": "/home/lab929/gtx/powercontext/minimax/.work/before_after",
+        "applied": {
+          "mode": "replay",
+          "patch": "/home/lab929/gtx/powercontext/minimax/patches/price_filter.patch",
+          "returncode": 0
+        },
+        "before": {
+          "target_exit": 1,
+          "regression_exit": 0,
+          "target_failed_for_missing_behavior": true,
+          "target_tail": "rd argument 'min_price'\n\ntests/test_price_filter.py:62: TypeError\n=========================== short test summary info ============================\nFAILED tests/test_price_filter.py::test_min_price_is_inclusive - TypeError: s...\nFAILED tests/test_price_filter.py::test_max_price_is_inclusive - TypeError: s...\nFAILED tests/test_price_filter.py::test_price_range_combines_with_query_and_category\nFAILED tests/test_price_filter.py::test_price_range_respects_sort_and_pagination\nFAILED tests/test_price_filter.py::test_price_bounds_allow_zero_and_empty_results\nFAILED tests/test_price_filter.py::test_invalid_price_bounds_raise_value_error[6000-5000]\nFAILED tests/test_price_filter.py::test_invalid_price_bounds_raise_value_error[-1-5000]\nFAILED tests/test_price_filter.py::test_invalid_price_bounds_raise_value_error[0--1]\nFAILED tests/test_price_filter.py::test_invalid_price_bounds_raise_value_error[True-5000]\nFAILED tests/test_price_filter.py::test_invalid_price_bounds_raise_value_error[5000-False]\nFAILED tests/test_price_filter.py::test_invalid_price_bounds_raise_value_error[10.5-5000]\nFAILED tests/test_price_filter.py::test_invalid_price_bounds_raise_value_error[5000-9000]\n12 failed in 0.10s\n",
+          "regression_tail": "............                                                             [100%]\n12 passed in 0.04s\n"
+        },
+        "after": {
+          "target_exit": 0,
+          "regression_exit": 0,
+          "target_tail": "............                                                             [100%]\n12 passed in 0.04s\n",
+          "regression_tail": "............                                                             [100%]\n12 passed in 0.03s\n"
+        }
+      }
+    },
+    {
+      "name": "before_failure_is_functional",
+      "passed": true,
+      "detail": " tests/test_price_filter.py::test_price_range_respects_sort_and_pagination\nFAILED tests/test_price_filter.py::test_price_bounds_allow_zero_and_empty_results\nFAILED tests/test_price_filter.py::test_invalid_price_bounds_raise_value_error[6000-5000]\nFAILED tests/test_price_filter.py::test_invalid_price_bounds_raise_value_error[-1-5000]\nFAILED tests/test_price_filter.py::test_invalid_price_bounds_raise_value_error[0--1]\nFAILED tests/test_price_filter.py::test_invalid_price_bounds_raise_value_error[True-5000]\nFAILED tests/test_price_filter.py::test_invalid_price_bounds_raise_value_error[5000-False]\nFAILED tests/test_price_filter.py::test_invalid_price_bounds_raise_value_error[10.5-5000]\nFAILED tests/test_price_filter.py::test_invalid_price_bounds_raise_value_error[5000-9000]\n12 failed in 0.10s\n"
+    }
+  ],
+  "commands": [
+    {
+      "command": "python minimax/run.py reset --yes",
+      "exit_code": 0,
+      "stdout": "{\n  \"ok\": true,\n  \"step\": \"reset\",\n  \"removed\": [\n    \"/home/lab929/gtx/powercontext/minimax/.state\",\n    \"/home/lab929/gtx/powercontext/minimax/.work\"\n  ]\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": "python minimax/run.py init",
+      "exit_code": 0,
+      "stdout": "{\n  \"ok\": true,\n  \"step\": \"init\",\n  \"documents\": [\n    {\n      \"doc_id\": \"spec:specs/inventory_search.md\",\n      \"kind\": \"spec\",\n      \"path\": \"minimax/specs/inventory_search.md\",\n      \"version\": \"d3902583a556\"\n    },\n    {\n      \"doc_id\": \"code:demo_project/inventory/__init__.py\",\n      \"kind\": \"code\",\n      \"path\": \"minimax/demo_project/inventory/__init__.py\",\n      \"version\": \"46cafe5bd99a\"\n    },\n    {\n      \"doc_id\": \"code:demo_project/inventory/models.py\",\n      \"kind\": \"code\",\n      \"path\": \"minimax/demo_project/inventory/models.py\",\n      \"version\": \"8d8c5a28081f\"\n    },\n    {\n      \"doc_id\": \"code:demo_project/inventory/repository.py\",\n      \"kind\": \"code\",\n      \"path\": \"minimax/demo_project/inventory/repository.py\",\n      \"version\": \"a6cbbd23a2f7\"\n    },\n    {\n      \"doc_id\": \"code:demo_project/inventory/search.py\",\n      \"kind\": \"code\",\n      \"path\": \"minimax/demo_project/inventory/search.py\",\n      \"version\": \"6ce512cba4f0\"\n    },\n    {\n      \"doc_id\": \"test:demo_project/tests/conftest.py\",\n      \"kind\": \"test\",\n      \"path\": \"minimax/demo_project/tests/conftest.py\",\n      \"version\": \"8659c4f6af34\"\n    },\n    {\n      \"doc_id\": \"test:demo_project/tests/test_price_filter.py\",\n      \"kind\": \"test\",\n      \"path\": \"minimax/demo_project/tests/test_price_filter.py\",\n      \"version\": \"9ff07ab11669\"\n    },\n    {\n      \"doc_id\": \"test:demo_project/tests/test_regression.py\",\n      \"kind\": \"test\",\n      \"path\": \"minimax/demo_project/tests/test_regression.py\",\n      \"version\": \"8caf57cc6d51\"\n    }\n  ],\n  \"document_count\": 8,\n  \"seekdb\": \"/home/lab929/gtx/powercontext/minimax/.state/seekdb\",\n  \"powercontext\": {\n    \"scope_id\": \"scp_662x6sedtswf15jh5hnpcef1y2\",\n    \"entry_id\": \"mem_ent_8e70b4a81f2847278e8655bb8b8b5d7a\",\n    \"memory_ref\": {\n      \"family\": \"memory\",\n      \"artifact_id\": \"memory\",\n      \"revision\": 1\n    },\n    \"saved_at\": \"2026-10-27T06:49:33.593631+00:00\"\n  }\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": "python minimax/run.py context --task Add optional min_price and max_price filters to inventory.search.search_products; keep the existing query, category, sort and pagination behavior.",
+      "exit_code": 0,
+      "stdout": "not None and min_price > max_price:\\n        raise ValueError(f\\\"min_price ({min_price}) must be <= max_price ({max_price})\\\")\\n\\n    results = list(products)\\n\\n    if query is not None:\\n        needle = query.strip().lower()\\n        if needle:\\n            results = [\\n                product\\n                for product in results\\n                if needle in product.name.lower() or needle in product.category.lower()\\n            ]\\n\\n    if category is not None:\\n        results = [product for product in results if product.category == category]\\n\\n    if min_price is not None:\\n        results = [product for product in results if product.price_cents >= min_price]\\n    if max_price is not None:\\n        results = [product for product in results if product.price_cents <= max_price]\\n\\n    if sort == \\\"price_asc\\\":\\n        results.sort(key=lambda product: (product.price_cents, product.sku))\\n    elif sort == \\\"price_desc\\\":\\n        results.sort(key=lambda product: (-product.price_cents, product.sku))\\n    elif sort == \\\"rating_desc\\\":\\n        results.sort(key=lambda product: (-product.rating, product.sku))\\n    else:\\n        results.sort(key=lambda product: (-product.rating, product.price_cents, product.sku))\\n\\n    start = (page - 1) * page_size\\n    stop = start + page_size\\n    return results[start:stop]\\n\\n```\\n\\n## Tests\\n\\n### minimax/demo_project/tests/test_price_filter.py\\n```python\\nimport pytest\\n\\nfrom inventory import all_products, search_products\\n\\n\\ndef skus(products):\\n    return [product.sku for product in products]\\n\\n\\ndef test_min_price_is_inclusive():\\n    result = search_products(all_products(), min_price=5000)\\n    assert set(skus(result)) == {\\\"SKU-001\\\", \\\"SKU-004\\\", \\\"SKU-005\\\", \\\"SKU-007\\\"}\\n\\n\\ndef test_max_price_is_inclusive():\\n    result = search_products(all_products(), max_price=3499)\\n    assert set(skus(result)) == {\\\"SKU-002\\\", \\\"SKU-006\\\", \\\"SKU-008\\\"}\\n    assert \\\"SKU-002\\\" in skus(result)\\n\\n\\ndef test_price_range_combines_with_query_and_category():\\n    result = search_products(\\n        all_products(),\\n        query=\\\"hub\\\",\\n        category=\\\"accessory\\\",\\n        min_price=3000,\\n        max_price=6000,\\n    )\\n    assert skus(result) == [\\\"SKU-003\\\"]\\n\\n\\ndef test_price_range_respects_sort_and_pagination():\\n    result = search_products(\\n        all_products(),\\n        min_price=2000,\\n        max_price=9000,\\n        sort=\\\"price_asc\\\",\\n        page=2,\\n        page_size=2,\\n    )\\n    assert skus(result) == [\\\"SKU-003\\\", \\\"SKU-005\\\"]\\n\\n\\ndef test_price_bounds_allow_zero_and_empty_results():\\n    assert search_products(all_products(), min_price=0, max_price=0) == []\\n\\n\\n@pytest.mark.parametrize(\\n    (\\\"min_price\\\", \\\"max_price\\\"),\\n    [\\n        (6000, 5000),\\n        (-1, 5000),\\n        (0, -1),\\n        (True, 5000),\\n        (5000, False),\\n        (10.5, 5000),\\n        (\\\"5000\\\", 9000),\\n    ],\\n)\\ndef test_invalid_price_bounds_raise_value_error(min_price, max_price):\\n    with pytest.raises(ValueError):\\n        search_products(all_products(), min_price=min_price, max_price=max_price)\\n\\n```\\n\\n### minimax/demo_project/tests/test_regression.py\\n```python\\nimport pytest\\n\\nfrom inventory import all_products, search_products\\n\\n\\ndef skus(products):\\n    return [product.sku for product in products]\\n\\n\\ndef test_query_is_case_insensitive():\\n    assert skus(search_products(all_products(), query=\\\"KEYBOARD\\\")) == [\\\"SKU-001\\\"]\\n\\n\\ndef test_category_filter_preserves_relevance_order():\\n    assert skus(search_products(all_products(), category=\\\"accessory\\\")) == [\\n        \\\"SKU-004\\\",\\n        \\\"SKU-003\\\",\\n        \\\"SKU-006\\\",\\n        \\\"SKU-008\\\",\\n    ]\\n\\n\\ndef test_price_ascending_sort():\\n    assert skus(search_products(all_products(), sort=\\\"price_asc\\\")) == [\\n        \\\"SKU-008\\\",\\n        \\\"SKU-006\\\",\\n        \\\"SKU-002\\\",\\n        \\\"SKU-003\\\",\\n        \\\"SKU-005\\\",\\n        \\\"SKU-001\\\",\\n        \\\"SKU-004\\\",\\n        \\\"SKU-007\\\",\\n    ]\\n\\n\\ndef test_rating_sort():\\n    assert skus(search_products(all_products(), sort=\\\"rating_desc\\\")) == [\\n        \\\"SKU-007\\\",\\n        \\\"SKU-001\\\",\\n        \\\"SKU-004\\\",\\n        \\\"SKU-002\\\",\\n        \\\"SKU-003\\\",\\n        \\\"SKU-006\\\",\\n        \\\"SKU-005\\\",\\n        \\\"SKU-008\\\",\\n    ]\\n\\n\\ndef test_pagination_keeps_existing_order():\\n    assert skus(search_products(all_products(), page=2, page_size=3)) == [\\n        \\\"SKU-002\\\",\\n        \\\"SKU-003\\\",\\n        \\\"SKU-006\\\",\\n    ]\\n\\n\\ndef test_blank_query_returns_everything():\\n    assert len(search_products(all_products(), query=\\\"   \\\")) == 8\\n\\n\\n@pytest.mark.parametrize(\\\"sort\\\", [\\\"newest\\\", \\\"\\\", \\\"PRICE_ASC\\\"])\\ndef test_unknown_sort_raises_value_error(sort):\\n    with pytest.raises(ValueError):\\n        search_products(all_products(), sort=sort)\\n\\n\\n@pytest.mark.parametrize((\\\"page\\\", \\\"page_size\\\"), [(0, 10), (1, 0), (-1, 5)])\\ndef test_invalid_pagination_raises_value_error(page, page_size):\\n    with pytest.raises(ValueError):\\n        search_products(all_products(), page=page, page_size=page_size)\\n\\n```\\n\\n## Saved task state (PowerContext)\\n```json\\n{\\n  \\\"completed\\\": [\\n    \\\"materials_imported\\\",\\n    \\\"context_built\\\"\\n  ],\\n  \\\"pending\\\": [\\n    \\\"apply_patch\\\",\\n    \\\"run_target_tests\\\",\\n    \\\"run_regression_tests\\\"\\n  ],\\n  \\\"required_sources\\\": [\\n    \\\"minimax/specs/inventory_search.md\\\",\\n    \\\"minimax/demo_project/inventory/search.py\\\",\\n    \\\"minimax/demo_project/tests/test_price_filter.py\\\",\\n    \\\"minimax/demo_project/tests/test_regression.py\\\"\\n  ],\\n  \\\"status\\\": \\\"context_ready\\\",\\n  \\\"task_id\\\": \\\"inventory-price-filter\\\",\\n  \\\"updated_at\\\": \\\"2026-10-27T06:49:48.351069+00:00\\\",\\n  \\\"validation\\\": {\\n    \\\"regression\\\": \\\"pending\\\",\\n    \\\"target\\\": \\\"pending\\\"\\n  }\\n}\\n```\\n\\n## Required source paths\\n- minimax/specs/inventory_search.md\\n- minimax/demo_project/inventory/search.py\\n- minimax/demo_project/tests/test_price_filter.py\\n- minimax/demo_project/tests/test_regression.py\",\n  \"ok\": true\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": "python minimax/run.py apply --mode replay",
+      "exit_code": 0,
+      "stdout": "{\n  \"ok\": true,\n  \"step\": \"apply\",\n  \"mode\": \"replay\",\n  \"workspace\": \"/home/lab929/gtx/powercontext/minimax/.work/demo\",\n  \"applied\": {\n    \"mode\": \"replay\",\n    \"patch\": \"/home/lab929/gtx/powercontext/minimax/patches/price_filter.patch\",\n    \"returncode\": 0\n  },\n  \"patch\": \"minimax/patches/price_filter.patch\",\n  \"task_state\": {\n    \"completed\": [\n      \"materials_imported\",\n      \"context_built\",\n      \"patch_applied\"\n    ],\n    \"pending\": [\n      \"run_target_tests\",\n      \"run_regression_tests\"\n    ],\n    \"required_sources\": [\n      \"minimax/specs/inventory_search.md\",\n      \"minimax/demo_project/inventory/search.py\",\n      \"minimax/demo_project/tests/test_price_filter.py\",\n      \"minimax/demo_project/tests/test_regression.py\"\n    ],\n    \"status\": \"patch_applied\",\n    \"task_id\": \"inventory-price-filter\",\n    \"updated_at\": \"2026-10-27T06:49:56.220398+00:00\",\n    \"validation\": {\n      \"regression\": \"pending\",\n      \"target\": \"pending\"\n    }\n  }\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": "python minimax/run.py test",
+      "exit_code": 0,
+      "stdout": "{\n  \"ok\": true,\n  \"step\": \"test\",\n  \"workspace\": \"/home/lab929/gtx/powercontext/minimax/.work/demo\",\n  \"target\": {\n    \"exit_code\": 0,\n    \"status\": \"passed\",\n    \"tail\": \"............                                                             [100%]\\n12 passed in 0.07s\\n\"\n  },\n  \"regression\": {\n    \"exit_code\": 0,\n    \"status\": \"passed\",\n    \"tail\": \"............                                                             [100%]\\n12 passed in 0.05s\\n\"\n  },\n  \"task_state\": {\n    \"completed\": [\n      \"materials_imported\",\n      \"context_built\",\n      \"patch_applied\",\n      \"tests_run\"\n    ],\n    \"pending\": [],\n    \"required_sources\": [\n      \"minimax/specs/inventory_search.md\",\n      \"minimax/demo_project/inventory/search.py\",\n      \"minimax/demo_project/tests/test_price_filter.py\",\n      \"minimax/demo_project/tests/test_regression.py\"\n    ],\n    \"status\": \"validated\",\n    \"task_id\": \"inventory-price-filter\",\n    \"updated_at\": \"2026-10-27T06:50:05.915002+00:00\",\n    \"validation\": {\n      \"regression\": \"passed\",\n      \"target\": \"passed\",\n      \"commands\": {\n        \"target\": \"python -m pytest tests/test_price_filter.py -q\",\n        \"regression\": \"python -m pytest tests/test_regression.py -q\"\n      }\n    }\n  }\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": "python minimax/run.py status",
+      "exit_code": 0,
+      "stdout": "{\n  \"ok\": true,\n  \"step\": \"status\",\n  \"state\": {\n    \"completed\": [\n      \"materials_imported\",\n      \"context_built\",\n      \"patch_applied\",\n      \"tests_run\"\n    ],\n    \"pending\": [],\n    \"required_sources\": [\n      \"minimax/specs/inventory_search.md\",\n      \"minimax/demo_project/inventory/search.py\",\n      \"minimax/demo_project/tests/test_price_filter.py\",\n      \"minimax/demo_project/tests/test_regression.py\"\n    ],\n    \"status\": \"validated\",\n    \"task_id\": \"inventory-price-filter\",\n    \"updated_at\": \"2026-10-27T06:50:05.915356+00:00\",\n    \"validation\": {\n      \"commands\": {\n        \"regression\": \"python -m pytest tests/test_regression.py -q\",\n        \"target\": \"python -m pytest tests/test_price_filter.py -q\"\n      },\n      \"regression\": \"passed\",\n      \"target\": \"passed\"\n    }\n  },\n  \"scope_id\": \"scp_662x6sedtswf15jh5hnpcef1y2\",\n  \"hit_count\": 4,\n  \"entry_count\": 4,\n  \"latest_entry_id\": \"mem_ent_32a0783f071a4967b2a0d8b22020984e\",\n  \"prepared_status\": \"ready\",\n  \"prepared_bytes\": 3643,\n  \"prepared_contains_state\": true\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": "python minimax/run.py spec-update --file /home/lab929/gtx/powercontext/minimax/validation/spec_update.md",
+      "exit_code": 0,
+      "stdout": "{\n  \"ok\": true,\n  \"step\": \"spec_update\",\n  \"source\": \"minimax/validation/spec_update.md\",\n  \"doc_id\": \"spec:specs/inventory_search.md\",\n  \"path\": \"minimax/specs/inventory_search.md\",\n  \"version\": \"0351ca8fdd86\",\n  \"marker\": \"v2\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": "python minimax/run.py context --task Add optional min_price and max_price filters to inventory.search.search_products; keep the existing query, category, sort and pagination behavior.",
+      "exit_code": 0,
+      "stdout": "         for product in results\\n                if needle in product.name.lower() or needle in product.category.lower()\\n            ]\\n\\n    if category is not None:\\n        results = [product for product in results if product.category == category]\\n\\n    if min_price is not None:\\n        results = [product for product in results if product.price_cents >= min_price]\\n    if max_price is not None:\\n        results = [product for product in results if product.price_cents <= max_price]\\n\\n    if sort == \\\"price_asc\\\":\\n        results.sort(key=lambda product: (product.price_cents, product.sku))\\n    elif sort == \\\"price_desc\\\":\\n        results.sort(key=lambda product: (-product.price_cents, product.sku))\\n    elif sort == \\\"rating_desc\\\":\\n        results.sort(key=lambda product: (-product.rating, product.sku))\\n    else:\\n        results.sort(key=lambda product: (-product.rating, product.price_cents, product.sku))\\n\\n    start = (page - 1) * page_size\\n    stop = start + page_size\\n    return results[start:stop]\\n\\n```\\n\\n## Tests\\n\\n### minimax/demo_project/tests/test_price_filter.py\\n```python\\nimport pytest\\n\\nfrom inventory import all_products, search_products\\n\\n\\ndef skus(products):\\n    return [product.sku for product in products]\\n\\n\\ndef test_min_price_is_inclusive():\\n    result = search_products(all_products(), min_price=5000)\\n    assert set(skus(result)) == {\\\"SKU-001\\\", \\\"SKU-004\\\", \\\"SKU-005\\\", \\\"SKU-007\\\"}\\n\\n\\ndef test_max_price_is_inclusive():\\n    result = search_products(all_products(), max_price=3499)\\n    assert set(skus(result)) == {\\\"SKU-002\\\", \\\"SKU-006\\\", \\\"SKU-008\\\"}\\n    assert \\\"SKU-002\\\" in skus(result)\\n\\n\\ndef test_price_range_combines_with_query_and_category():\\n    result = search_products(\\n        all_products(),\\n        query=\\\"hub\\\",\\n        category=\\\"accessory\\\",\\n        min_price=3000,\\n        max_price=6000,\\n    )\\n    assert skus(result) == [\\\"SKU-003\\\"]\\n\\n\\ndef test_price_range_respects_sort_and_pagination():\\n    result = search_products(\\n        all_products(),\\n        min_price=2000,\\n        max_price=9000,\\n        sort=\\\"price_asc\\\",\\n        page=2,\\n        page_size=2,\\n    )\\n    assert skus(result) == [\\\"SKU-003\\\", \\\"SKU-005\\\"]\\n\\n\\ndef test_price_bounds_allow_zero_and_empty_results():\\n    assert search_products(all_products(), min_price=0, max_price=0) == []\\n\\n\\n@pytest.mark.parametrize(\\n    (\\\"min_price\\\", \\\"max_price\\\"),\\n    [\\n        (6000, 5000),\\n        (-1, 5000),\\n        (0, -1),\\n        (True, 5000),\\n        (5000, False),\\n        (10.5, 5000),\\n        (\\\"5000\\\", 9000),\\n    ],\\n)\\ndef test_invalid_price_bounds_raise_value_error(min_price, max_price):\\n    with pytest.raises(ValueError):\\n        search_products(all_products(), min_price=min_price, max_price=max_price)\\n\\n```\\n\\n### minimax/demo_project/tests/test_regression.py\\n```python\\nimport pytest\\n\\nfrom inventory import all_products, search_products\\n\\n\\ndef skus(products):\\n    return [product.sku for product in products]\\n\\n\\ndef test_query_is_case_insensitive():\\n    assert skus(search_products(all_products(), query=\\\"KEYBOARD\\\")) == [\\\"SKU-001\\\"]\\n\\n\\ndef test_category_filter_preserves_relevance_order():\\n    assert skus(search_products(all_products(), category=\\\"accessory\\\")) == [\\n        \\\"SKU-004\\\",\\n        \\\"SKU-003\\\",\\n        \\\"SKU-006\\\",\\n        \\\"SKU-008\\\",\\n    ]\\n\\n\\ndef test_price_ascending_sort():\\n    assert skus(search_products(all_products(), sort=\\\"price_asc\\\")) == [\\n        \\\"SKU-008\\\",\\n        \\\"SKU-006\\\",\\n        \\\"SKU-002\\\",\\n        \\\"SKU-003\\\",\\n        \\\"SKU-005\\\",\\n        \\\"SKU-001\\\",\\n        \\\"SKU-004\\\",\\n        \\\"SKU-007\\\",\\n    ]\\n\\n\\ndef test_rating_sort():\\n    assert skus(search_products(all_products(), sort=\\\"rating_desc\\\")) == [\\n        \\\"SKU-007\\\",\\n        \\\"SKU-001\\\",\\n        \\\"SKU-004\\\",\\n        \\\"SKU-002\\\",\\n        \\\"SKU-003\\\",\\n        \\\"SKU-006\\\",\\n        \\\"SKU-005\\\",\\n        \\\"SKU-008\\\",\\n    ]\\n\\n\\ndef test_pagination_keeps_existing_order():\\n    assert skus(search_products(all_products(), page=2, page_size=3)) == [\\n        \\\"SKU-002\\\",\\n        \\\"SKU-003\\\",\\n        \\\"SKU-006\\\",\\n    ]\\n\\n\\ndef test_blank_query_returns_everything():\\n    assert len(search_products(all_products(), query=\\\"   \\\")) == 8\\n\\n\\n@pytest.mark.parametrize(\\\"sort\\\", [\\\"newest\\\", \\\"\\\", \\\"PRICE_ASC\\\"])\\ndef test_unknown_sort_raises_value_error(sort):\\n    with pytest.raises(ValueError):\\n        search_products(all_products(), sort=sort)\\n\\n\\n@pytest.mark.parametrize((\\\"page\\\", \\\"page_size\\\"), [(0, 10), (1, 0), (-1, 5)])\\ndef test_invalid_pagination_raises_value_error(page, page_size):\\n    with pytest.raises(ValueError):\\n        search_products(all_products(), page=page, page_size=page_size)\\n\\n```\\n\\n## Saved task state (PowerContext)\\n```json\\n{\\n  \\\"completed\\\": [\\n    \\\"materials_imported\\\",\\n    \\\"context_built\\\",\\n    \\\"patch_applied\\\",\\n    \\\"tests_run\\\",\\n    \\\"spec_updated\\\"\\n  ],\\n  \\\"pending\\\": [\\n    \\\"apply_patch\\\",\\n    \\\"run_target_tests\\\",\\n    \\\"run_regression_tests\\\"\\n  ],\\n  \\\"required_sources\\\": [\\n    \\\"minimax/specs/inventory_search.md\\\",\\n    \\\"minimax/demo_project/inventory/search.py\\\",\\n    \\\"minimax/demo_project/tests/test_price_filter.py\\\",\\n    \\\"minimax/demo_project/tests/test_regression.py\\\"\\n  ],\\n  \\\"spec_marker\\\": \\\"v2\\\",\\n  \\\"spec_version\\\": \\\"0351ca8fdd86\\\",\\n  \\\"status\\\": \\\"context_ready\\\",\\n  \\\"task_id\\\": \\\"inventory-price-filter\\\",\\n  \\\"updated_at\\\": \\\"2026-10-27T06:50:30.496421+00:00\\\",\\n  \\\"validation\\\": {\\n    \\\"commands\\\": {\\n      \\\"regression\\\": \\\"python -m pytest tests/test_regression.py -q\\\",\\n      \\\"target\\\": \\\"python -m pytest tests/test_price_filter.py -q\\\"\\n    },\\n    \\\"regression\\\": \\\"pending\\\",\\n    \\\"target\\\": \\\"pending\\\"\\n  }\\n}\\n```\\n\\n## Required source paths\\n- minimax/specs/inventory_search.md\\n- minimax/demo_project/inventory/search.py\\n- minimax/demo_project/tests/test_price_filter.py\\n- minimax/demo_project/tests/test_regression.py\",\n  \"ok\": true\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": "python minimax/run.py before-after",
+      "exit_code": 0,
+      "stdout": "{\n  \"ok\": true,\n  \"step\": \"before_after\",\n  \"workspace\": \"/home/lab929/gtx/powercontext/minimax/.work/before_after\",\n  \"applied\": {\n    \"mode\": \"replay\",\n    \"patch\": \"/home/lab929/gtx/powercontext/minimax/patches/price_filter.patch\",\n    \"returncode\": 0\n  },\n  \"before\": {\n    \"target_exit\": 1,\n    \"regression_exit\": 0,\n    \"target_failed_for_missing_behavior\": true,\n    \"target_tail\": \"rd argument 'min_price'\\n\\ntests/test_price_filter.py:62: TypeError\\n=========================== short test summary info ============================\\nFAILED tests/test_price_filter.py::test_min_price_is_inclusive - TypeError: s...\\nFAILED tests/test_price_filter.py::test_max_price_is_inclusive - TypeError: s...\\nFAILED tests/test_price_filter.py::test_price_range_combines_with_query_and_category\\nFAILED tests/test_price_filter.py::test_price_range_respects_sort_and_pagination\\nFAILED tests/test_price_filter.py::test_price_bounds_allow_zero_and_empty_results\\nFAILED tests/test_price_filter.py::test_invalid_price_bounds_raise_value_error[6000-5000]\\nFAILED tests/test_price_filter.py::test_invalid_price_bounds_raise_value_error[-1-5000]\\nFAILED tests/test_price_filter.py::test_invalid_price_bounds_raise_value_error[0--1]\\nFAILED tests/test_price_filter.py::test_invalid_price_bounds_raise_value_error[True-5000]\\nFAILED tests/test_price_filter.py::test_invalid_price_bounds_raise_value_error[5000-False]\\nFAILED tests/test_price_filter.py::test_invalid_price_bounds_raise_value_error[10.5-5000]\\nFAILED tests/test_price_filter.py::test_invalid_price_bounds_raise_value_error[5000-9000]\\n12 failed in 0.10s\\n\",\n    \"regression_tail\": \"............                                                             [100%]\\n12 passed in 0.04s\\n\"\n  },\n  \"after\": {\n    \"target_exit\": 0,\n    \"regression_exit\": 0,\n    \"target_tail\": \"............                                                             [100%]\\n12 passed in 0.04s\\n\",\n    \"regression_tail\": \"............                                                             [100%]\\n12 passed in 0.03s\\n\"\n  }\n}\n",
+      "stderr": ""
+    }
+  ],
+  "context_v1": "/home/lab929/gtx/powercontext/minimax/records/context.json"
+}
